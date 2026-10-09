@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+ai = ["anthropic>=1.13"]
 
 [project.scripts]
 earnings-monitor = "earnings_monitor.cli:main"

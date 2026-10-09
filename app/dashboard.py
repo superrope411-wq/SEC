@@ -13,6 +13,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from earnings_monitor import PIPELINE_VERSION  # noqa: E402
 from earnings_monitor.analysis import COMPARISONS, AnalysisError, analyze, available_comparisons  # noqa: E402
@@ -22,6 +23,9 @@ from earnings_monitor.exports.tables import definitions_frame, to_csv, to_excel 
 from earnings_monitor.ingestion.sec_client import SecError  # noqa: E402
 from earnings_monitor.models import Change, MetricValue  # noqa: E402
 from earnings_monitor.pipeline import load_company  # noqa: E402
+from earnings_monitor.evidence.retrieve import build_index  # noqa: E402
+from earnings_monitor.explain.store import AiStore  # noqa: E402
+import explain_panel  # noqa: E402
 
 st.set_page_config(page_title="Quarterly Earnings Change Monitor", layout="wide")
 
@@ -32,6 +36,17 @@ LINE_COLOR = "#3B6EA8"  # one series per chart, so a single neutral hue
 def _load(ticker: str, refresh_token: int):
     settings = load_settings()
     return load_company(COMPANIES[ticker], settings, refresh=refresh_token > 0)
+
+
+@st.cache_resource(show_spinner="Reading the filing text…")
+def _index(ticker: str, accn: str, refresh_token: int):
+    """Evidence index for one filing; returns (index, error message) and never raises."""
+    settings = load_settings()
+    data, _ = load_company(COMPANIES[ticker], settings)
+    try:
+        return build_index(data, accn, settings), None
+    except Exception as exc:  # missing document, network refused, parse failure
+        return None, f"{type(exc).__name__}: {exc}"
 
 
 def usd_scale(values) -> tuple[float, str]:
@@ -95,7 +110,8 @@ def evidence(v: MetricValue) -> None:
 
 # ---------------------------------------------------------------------------------------------
 st.title("Quarterly Earnings Change Monitor")
-st.caption("Deterministic SEC XBRL pipeline. Every number links to its filing. No AI in this milestone.")
+st.caption("Deterministic SEC XBRL pipeline. Every number links to its filing. "
+           "AI is used only in the Explanations tab, only on request, and only to explain verified numbers.")
 
 with st.sidebar:
     st.header("Selection")
@@ -153,8 +169,9 @@ errors = [i for i in warnings if i.severity == "error"]
 if errors:
     st.error(f"{len(errors)} validation error(s). See 'Validation' below.")
 
-tab_changes, tab_findings, tab_trends, tab_validation, tab_defs = st.tabs(
-    ["Financial changes", f"Findings ({len(a.findings)})", "Trends", f"Validation ({len(warnings)})", "Definitions"])
+tab_changes, tab_explain, tab_findings, tab_trends, tab_validation, tab_defs = st.tabs(
+    ["Financial changes", "Explanations", f"Findings ({len(a.findings)})", "Trends", f"Validation ({len(warnings)})",
+     "Definitions"])
 
 with tab_changes:
     scale, scale_label = usd_scale([c.current.value for c in a.changes if c.unit != "ratio"] +
@@ -176,6 +193,15 @@ with tab_changes:
     with col_b:
         st.markdown("Prior period")
         evidence(c.prior)
+
+with tab_explain:
+    try:
+        ai_store = AiStore(load_settings().data_dir / "ai_cache.sqlite")
+        index, index_error = _index(ticker, accn, st.session_state.refresh)
+        explain_panel.render(a, index, index_error, ai_store)
+        explain_panel.usage_summary(ai_store)
+    except Exception as exc:  # explanations are optional; the tables above must keep working
+        st.error(f"Explanations unavailable: {type(exc).__name__}: {exc}")
 
 with tab_findings:
     st.caption("Flags are rule-based and neutral: a flag means 'worth a look', not good or bad. "

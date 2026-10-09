@@ -1,0 +1,39 @@
+{
+  "description": "Main HTML documents of Microsoft's FY2025 10-Q and 10-K filings, saved unmodified (gzip) from EDGAR's archive. Used offline by the evidence tests.",
+  "downloaded_at": "2026-10-09T20:06:00Z",
+  "user_agent": "Ronin SEC-scanner (contact email in SEC_USER_AGENT)",
+  "files": [
+    {
+      "path": "0000950170-24-118967/msft-20240930.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/msft-20240930.htm",
+      "form": "10-Q",
+      "filed": "2024-10-30",
+      "bytes_uncompressed": 4284074,
+      "sha256_uncompressed": "d335a8808435fa2f7a5d45f09f84eaf83eea79e01b1e5f3fd09ac3bffb29beae"
+    },
+    {
+      "path": "0000950170-25-010491/msft-20241231.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/msft-20241231.htm",
+      "form": "10-Q",
+      "filed": "2025-01-29",
+      "bytes_uncompressed": 6297528,
+      "sha256_uncompressed": "e177d753c56435249d74be02874f4c6786b160880ba788f4b1b9348765ced31b"
+    },
+    {
+      "path": "0000950170-25-061046/msft-20250331.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/msft-20250331.htm",
+      "form": "10-Q",
+      "filed": "2025-04-30",
+      "bytes_uncompressed": 6995557,
+      "sha256_uncompressed": "33b37f4af3e98c28c7ada1167eefb002e2862e69850e02fa4888d1ad83ee58aa"
+    },
+    {
+      "path": "0000950170-25-100235/msft-20250630.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm",
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "bytes_uncompressed": 8158182,
+      "sha256_uncompressed": "8223271391eda4e89301d51213714f8bcd925925ba6b41c691788c7eb66c9657"
+    }
+  ]
+}
