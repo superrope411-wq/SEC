@@ -137,3 +137,8 @@ def test_retrieval_finds_management_explanation(k_index, q3_index, accn, query, 
     idx = k_index if accn == TEN_K else q3_index
     top = [h.passage.evidence_id for h in idx.search(query, metrics, periods, k=5)]
     assert expected in top
+
+
+def test_bullets_inherit_the_period_of_their_introduction(k_index):
+    cloud = next(p for p in k_index.passages if p.text.startswith("Microsoft Cloud revenue increased 23% to $168.9 billion"))
+    assert cloud.kind == "list_item" and cloud.periods == [FY25, FY24]

@@ -28,7 +28,7 @@ from earnings_monitor.explain.schema import CalculatedChange, Explanation
 from earnings_monitor.explain.store import AiStore
 from earnings_monitor.explain.validate import validate
 
-TOP_K = 12
+TOP_K = 15
 MIN_SCORE = 6.0  # below this best retrieval score, nothing in the filing is about the question
 # Derived measures are explained through their inputs (Microsoft does not discuss "free cash flow").
 COMPONENTS = {"free_cash_flow": ["operating_cash_flow", "capex"], "operating_margin": ["operating_income", "revenue"],
@@ -114,7 +114,21 @@ def prepare(question: str, a: Analysis, index: EvidenceIndex | None, settings: A
     elif not gate:
         metrics = question_metrics(question)
         metrics += [c for m in metrics for c in COMPONENTS.get(m, []) if c not in metrics]
-        hits = index.search(question, metrics, periods, k=k)
+        # Two rankings, interleaved: the question's own words, and the question expanded with the
+        # metric's filing vocabulary. The first keeps vague questions ("margins") from being
+        # swamped by one metric's wording; the second finds the metric's own MD&A sentence.
+        plain = index.search(question, [], periods, k=k)
+        expanded = index.search(question, metrics, periods, k=k) if metrics else []
+        hits, seen = [], set()
+        for pair in zip(expanded or plain, plain):
+            for h in pair:
+                if h.passage.evidence_id not in seen and len(hits) < k:
+                    hits.append(h)
+                    seen.add(h.passage.evidence_id)
+        for h in plain + expanded:
+            if h.passage.evidence_id not in seen and len(hits) < k:
+                hits.append(h)
+                seen.add(h.passage.evidence_id)
         if not hits or hits[0].score < MIN_SCORE:
             gate = "No passage in the filing matches the question."
     if gate:

@@ -29,7 +29,7 @@ from earnings_monitor.evidence.retrieve import EvidenceIndex, tokens
 from earnings_monitor.evidence.vocab import STOPWORDS
 from earnings_monitor.explain.figures import check_figure, mentions
 from earnings_monitor.explain.schema import (
-    AnswerStatus, CalculatedChange, CheckedStatement, CitationCheck, Explanation, FigureCheck, ModelAnswer,
+    AnswerStatus, CalculatedChange, CheckedStatement, CitationCheck, Explanation, ModelAnswer,
 )
 
 RANK = {"supported": 0, "inferred": 1, "conflicting evidence": 2, "insufficient evidence": 3}

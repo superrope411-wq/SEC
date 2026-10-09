@@ -1,0 +1,453 @@
+{
+  "generated_at": "2026-10-09T20:34:31+00:00",
+  "mode": "offline",
+  "split": "all",
+  "model": null,
+  "summary": {
+    "questions": 19,
+    "by_category": {
+      "supported": 8,
+      "ambiguous": 4,
+      "unanswerable": 6,
+      "inference_only": 1
+    },
+    "gated_without_model": 2,
+    "gold_quote_recall": "16/21",
+    "gold_figure_checks": "16/16 verified",
+    "offline_pass": "12/15",
+    "offline_fail_ids": [
+      "A2",
+      "A3",
+      "A4"
+    ],
+    "ai_ledger": null
+  },
+  "results": [
+    {
+      "id": "S1",
+      "split": "dev",
+      "category": "supported",
+      "question": "Why did revenue increase in fiscal year 2025 compared with fiscal year 2024?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$36.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 36602000000.0,
+          "stated": 36600000000.0
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "15%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 14.93215623240672,
+          "stated": 15.0
+        }
+      ],
+      "prepare_ms": 46,
+      "offline_pass": true
+    },
+    {
+      "id": "S2",
+      "split": "heldout",
+      "category": "supported",
+      "question": "What drove the increase in operating expenses in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 10,
+      "offline_pass": true
+    },
+    {
+      "id": "S3",
+      "split": "dev",
+      "category": "supported",
+      "question": "Why did operating cash flow increase in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "operating_cash_flow",
+          "measure": "change_amount",
+          "text": "$17.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 17614000000.0,
+          "stated": 17600000000.0
+        },
+        {
+          "metric": "operating_cash_flow",
+          "measure": "current_value",
+          "text": "$136.2 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 136162000000.0,
+          "stated": 136199999999.99998
+        }
+      ],
+      "prepare_ms": 62,
+      "offline_pass": true
+    },
+    {
+      "id": "S4",
+      "split": "heldout",
+      "category": "supported",
+      "question": "Why did revenue increase in the third quarter of fiscal 2025 compared with a year earlier?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$8.2 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 8208000000.0,
+          "stated": 8199999999.999999
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "13%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 13.269100197225905,
+          "stated": 13.0
+        }
+      ],
+      "prepare_ms": 35,
+      "offline_pass": true
+    },
+    {
+      "id": "S5",
+      "split": "dev",
+      "category": "supported",
+      "question": "What drove operating income growth in the quarter compared with the same quarter last year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "operating_income",
+          "measure": "change_amount",
+          "text": "$4.4 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 4419000000.0,
+          "stated": 4400000000.0
+        },
+        {
+          "metric": "operating_income",
+          "measure": "change_percent",
+          "text": "16%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 16.02189913346144,
+          "stated": 16.0
+        }
+      ],
+      "prepare_ms": 14,
+      "offline_pass": true
+    },
+    {
+      "id": "S6",
+      "split": "heldout",
+      "category": "supported",
+      "question": "Why did revenue increase compared with the same quarter last year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$9.1 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 9068000000.0,
+          "stated": 9100000000.0
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "16%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 16.04472990427659,
+          "stated": 16.0
+        }
+      ],
+      "prepare_ms": 14,
+      "offline_pass": true
+    },
+    {
+      "id": "S7",
+      "split": "dev",
+      "category": "supported",
+      "question": "Why did operating income increase compared with the same quarter last year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "operating_income",
+          "measure": "change_amount",
+          "text": "$4.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 4621000000.0,
+          "stated": 4600000000.0
+        },
+        {
+          "metric": "operating_income",
+          "measure": "change_percent",
+          "text": "17%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 17.09455460195324,
+          "stated": 17.0
+        }
+      ],
+      "prepare_ms": 22,
+      "offline_pass": true
+    },
+    {
+      "id": "S8",
+      "split": "heldout",
+      "category": "supported",
+      "question": "Why did revenue grow compared with the second quarter of fiscal 2024?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$7.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 7612000000.0,
+          "stated": 7600000000.0
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "12%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 12.273460174137375,
+          "stated": 12.0
+        }
+      ],
+      "prepare_ms": 19,
+      "offline_pass": true
+    },
+    {
+      "id": "A1",
+      "split": "dev",
+      "category": "ambiguous",
+      "question": "Why did margins change?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 63,
+      "offline_pass": true
+    },
+    {
+      "id": "A2",
+      "split": "heldout",
+      "category": "ambiguous",
+      "question": "How did the cloud business do this year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 3,
+      "gold_retrieved": 1,
+      "gold_missing": [
+        "Microsoft Cloud revenue increased 23% to $168.9 billion.",
+        "Revenue increased $18.8 billion or 21%."
+      ],
+      "gold_figure_checks": [],
+      "prepare_ms": 9,
+      "offline_pass": false
+    },
+    {
+      "id": "A3",
+      "split": "dev",
+      "category": "ambiguous",
+      "question": "Why did revenue grow this year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 1,
+      "gold_missing": [
+        "Revenue increased $24.9 billion or 14% with growth across each of our segments."
+      ],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$8.2 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 8208000000.0,
+          "stated": 8199999999.999999
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "13%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 13.269100197225905,
+          "stated": 13.0
+        }
+      ],
+      "prepare_ms": 14,
+      "offline_pass": false
+    },
+    {
+      "id": "A4",
+      "split": "heldout",
+      "category": "ambiguous",
+      "question": "What happened to expenses?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 0,
+      "gold_missing": [
+        "Cost of revenue increased $13.7 billion or 19% driven by growth in Microsoft Cloud.",
+        "Operating expenses increased $3.8 billion or 6% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition."
+      ],
+      "gold_figure_checks": [],
+      "prepare_ms": 5,
+      "offline_pass": false
+    },
+    {
+      "id": "U1",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "How much revenue did Azure generate in fiscal year 2025, in dollars?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 25,
+      "offline_pass": null
+    },
+    {
+      "id": "U2",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "Why did revenue increase from the third quarter to the fourth quarter of fiscal 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 30,
+      "offline_pass": null
+    },
+    {
+      "id": "U3",
+      "split": "heldout",
+      "category": "unanswerable",
+      "question": "What revenue does Microsoft expect for fiscal year 2026?",
+      "gate": "The question asks about 2026, after the periods in this filing (filed 2025-07-30). Filings report results that have happened; they cannot answer that.",
+      "offered": 0,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 1,
+      "offline_pass": true
+    },
+    {
+      "id": "U4",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "Why did Adobe's revenue grow?",
+      "gate": "The question is about Adobe Inc.; this analysis covers only Microsoft Corporation's filing 0000950170-25-061046.",
+      "offered": 0,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 0,
+      "offline_pass": true
+    },
+    {
+      "id": "U5",
+      "split": "heldout",
+      "category": "unanswerable",
+      "question": "How many new Azure customers did Microsoft add in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 16,
+      "offline_pass": null
+    },
+    {
+      "id": "U6",
+      "split": "heldout",
+      "category": "inference_only",
+      "question": "Why did capital expenditures increase in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 58,
+      "offline_pass": true
+    },
+    {
+      "id": "U7",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "Why did Microsoft's stock price fall during the quarter?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 6,
+      "offline_pass": null
+    }
+  ]
+}

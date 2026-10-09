@@ -196,7 +196,6 @@ def _table_rows(table, form: str, fye: tuple[int, int]):
     body_start = len(rows)
     for i, r in enumerate(rows):
         texts = [(a, b, t) for a, b, t in r if t]
-        first = texts[0][2] if texts else ""
         nums = [t for a, b, t in texts[1:] if parse_number(t)[0] is not None]
         label_cell = r[0][2] if r else ""
         years_only = nums and all(re.fullmatch(r"(19|20)\d\d", t) for t in nums)
@@ -330,7 +329,10 @@ def extract_passages(html: bytes | str, accn: str, form: str, url: str = "",
         if not bold and _RUNNING.match(text):
             continue
         if kind == "list":
-            add("list_item", text.lstrip("•●▪-· ").strip(), periods=period_heading or find_periods(text, fye))
+            # A bullet with no period of its own belongs to the heading above it, or to the
+            # sentence that introduced the list ("Highlights from fiscal year 2025 ... included:").
+            add("list_item", text.lstrip("•●▪-· ").strip(),
+                periods=find_periods(text, fye) or period_heading or intro_periods)
             continue
         m_part, m_item = _PART.match(text), _ITEM.match(text)
         if bold and m_part and len(text) < 60:

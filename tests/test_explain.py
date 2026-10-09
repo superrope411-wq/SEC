@@ -13,7 +13,7 @@ import pytest
 from earnings_monitor.analysis import analyze
 from earnings_monitor.config import COMPANIES, Settings
 from earnings_monitor.evidence.extract import Passage
-from earnings_monitor.evidence.retrieve import EvidenceIndex, build_index
+from earnings_monitor.evidence.retrieve import build_index
 from earnings_monitor.explain import prompt
 from earnings_monitor.explain.figures import check_figure
 from earnings_monitor.explain.llm import AiSettings, ModelError, ModelUnavailable, ClaudeExplainer

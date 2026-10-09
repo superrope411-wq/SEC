@@ -20,6 +20,7 @@ from earnings_monitor.evidence.extract import Passage, extract_passages
 from earnings_monitor.evidence.vocab import METRIC_TERMS, STOPWORDS
 
 _TOKEN = re.compile(r"[a-z0-9]+")
+_EXPLAINS = re.compile(r"\b(increased|decreased|grew|declined|driven|due to|primarily|offset)\b", re.I)
 
 
 def tokens(text: str) -> list[str]:
@@ -119,9 +120,12 @@ class EvidenceIndex:
             w_lead = 1.0
             if any(low.startswith(ph) or low.startswith("total - " + ph) for ph in phrases):
                 w_lead = 1.6 if p.subject is None else 1.1
-            score = base * w_sec * w_per * w_phrase * w_lead
+            # Narrative sentences that describe a movement beat bare table rows for "why" questions.
+            w_narr = 1.3 if p.kind != "table_row" and _EXPLAINS.search(p.text) else 1.0
+            score = base * w_sec * w_per * w_phrase * w_lead * w_narr
             hits.append(Hit(p, score, matched,
-                            f"bm25 {base:.2f} x section {w_sec} x period {w_per} x phrase {w_phrase} x lead {w_lead}"))
+                            f"bm25 {base:.2f} x section {w_sec} x period {w_per} x phrase {w_phrase} x lead {w_lead} "
+                            f"x narrative {w_narr}"))
         hits.sort(key=lambda h: -h.score)
         return hits[:k]
 
