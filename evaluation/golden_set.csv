@@ -1,0 +1,4 @@
+# Manually verified values. Fill from the actual filing (PDF/HTML on EDGAR), not from this tool.
+# tolerance_abs is in the metric's unit (USD) unless the metric is a ratio.
+# Leave expected_value blank for cases that should be "missing" and set expected_status=missing.
+ticker,accn,comparison,metric_id,period,expected_value,expected_status,tolerance_abs,checked_by,checked_on,source_page_or_note
