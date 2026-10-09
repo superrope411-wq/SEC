@@ -80,7 +80,8 @@ def evidence(v: MetricValue) -> None:
             st.table(pd.DataFrame({"Input": list(v.input_values), "Value": [f"{x:,.4f}" if abs(x) < 10 else f"{x:,.0f}"
                                                                            for x in v.input_values.values()]}))
     if v.restated and v.originally_reported is not None:
-        st.warning(f"Revised: originally reported as {v.originally_reported:,.0f}.")
+        st.warning(f"Revised: originally reported as {v.originally_reported:,.0f}. The data does not say why "
+                   "(accounting-policy change or error correction); check the filing.")
     if v.sources:
         rows = [{"XBRL concept": s.concept, "Period": f"{s.period_start or ''}..{s.period_end}".strip("."),
                  "Value": f"{s.value:,.0f}", "Form": s.form, "Accession": s.accn, "Filed": str(s.filed),
@@ -145,7 +146,7 @@ c3.metric("Fiscal period", a.quarter.label)
 c4.metric("Comparison", {"sequential": "Sequential", "yoy": "Year over year", "annual": "Annual"}[a.comparison])
 st.markdown(f"**{a.current_label}** vs **{a.prior_label}** · "
             f"[Open filing {a.filing.accn} on EDGAR]({a.filing.url}) · "
-            "All values are as reported in filings made on or before the filing date; later restatements are excluded.")
+            "All values are as reported in filings made on or before the filing date; later revisions are excluded.")
 
 warnings = [i for i in a.issues if i.severity in ("error", "warning") and i.code != "fixture_mode"]
 errors = [i for i in warnings if i.severity == "error"]

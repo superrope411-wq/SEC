@@ -51,7 +51,7 @@ def values_frame(a: Analysis) -> pd.DataFrame:
             "Value": v.value, "Status": v.status, "XBRL concept": v.concept or "", "Formula": v.formula or "",
             "Inputs": "; ".join(f"{k} = {x:,.4f}" if abs(x) < 10 else f"{k} = {x:,.0f}" for k, x in v.input_values.items()),
             "Sources": _sources(v), "Why this fact": v.selection_reason,
-            "Restated": v.restated, "Originally reported": v.originally_reported, "Notes": " ".join(v.notes),
+            "Revised after first report": v.restated, "Originally reported": v.originally_reported, "Notes": " ".join(v.notes),
         })
     return pd.DataFrame(rows)
 

@@ -7,7 +7,7 @@ records the reason for every choice. See docs/FACT_SELECTION_POLICY.md.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)

@@ -139,9 +139,10 @@ def test_filings_older_than_the_submissions_list_get_the_right_period(msft):
     assert rev.current.value == 143_015 * M and rev.prior.value == 125_843 * M
 
 
-def test_real_restatement_does_not_leak_backwards(msft):
-    """Microsoft adopted ASC 606 in FY2018 and restated FY2017 revenue. FY2017 Q1 revenue was
-    20,453M in the original 10-Q (filed 2016-10-20) and 21,928M in the FY2018 Q1 10-Q."""
+def test_real_retrospective_revision_does_not_leak_backwards(msft):
+    """Microsoft early-adopted the ASC 606 revenue standard (full retrospective method) in FY2018,
+    an accounting-policy change, not an error correction. FY2017 Q1 revenue was 20,453M in the
+    original 10-Q (filed 2016-10-20) and 21,928M as adjusted in the FY2018 Q1 10-Q."""
     q1 = date(2016, 7, 1), date(2016, 9, 30)
     original = analyze(msft, "0001193125-16-742796", "yoy")
     v = _value(original, "revenue", *q1)

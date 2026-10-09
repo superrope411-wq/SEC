@@ -65,7 +65,8 @@ def value_issues(values: list[MetricValue]) -> list[Issue]:
         if v.restated:
             issues.append(Issue(severity="warning", code="restated", metric_id=v.metric_id, period_label=v.period_label,
                                 message=f"{v.metric_label} for {v.period_label} was revised after first being reported. "
-                                        "Value shown is the latest available as of this filing date."))
+                                        "Value shown is the latest available as of this filing date. XBRL data does not say "
+                                        "why (accounting-policy change or error correction); see the filing."))
         for n in v.notes:
             if "different values" in n:
                 issues.append(Issue(severity="error", code="conflicting_duplicates", metric_id=v.metric_id,

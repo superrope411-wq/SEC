@@ -2,7 +2,6 @@
 
 from datetime import date
 
-import pytest
 
 from earnings_monitor.financial_normalization.metrics import METRICS
 from earnings_monitor.financial_normalization.selection import FactSelector

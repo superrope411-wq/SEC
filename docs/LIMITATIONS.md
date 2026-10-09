@@ -16,11 +16,13 @@
 - **Derived quarters inherit restatements.** A Q4 derived from a 10-K and a Q3 10-Q uses the
   latest values available as of the as-of date; if the 10-K restated nine-month figures and
   the restated YTD was not re-tagged, the derived Q4 could be off. The two source facts are
-  always shown so this can be checked. Real example: Microsoft's FY2016 Q3 10-Q restated
-  Q1 and Q2 net income without re-tagging the six-month total; the YTD consistency check
+  always shown so this can be checked. Real example: Microsoft's FY2016 Q3 10-Q adjusted
+  Q1 and Q2 net income for a new share-based payment accounting standard without re-tagging the six-month total; the YTD consistency check
   reports this as an error rather than hiding it.
-- **Restatement detection is value-based.** A fact that was corrected in a later filing is
-  flagged; a correction that only appears in an amendment's text (not XBRL) is not seen.
+- **Revision detection is value-based and does not know the reason.** A value that changed in a
+  later filing is flagged "revised" whether the cause was a new accounting standard or an
+  error correction; the filing text says which. A change that only appears in an
+  amendment's text (not XBRL) is not seen.
 - **Fiscal calendar detection needs 10-K data.** A company with fewer than one full fiscal
   year of XBRL filings will not get a calendar.
 - **Submissions "recent" list** can omit very old filings; those are added from facts but

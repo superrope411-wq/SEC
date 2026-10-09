@@ -37,11 +37,14 @@ total, never a segment or a member of a breakdown.
    If a lower-ranked concept disagrees, a warning is recorded.
 2. Among facts for the winning concept and exact period, the one from the **most recently
    filed** eligible filing is used. The earliest value is also kept; if they differ the
-   value is flagged **restated** and both values are shown.
+   value is flagged **revised** (field `restated` in code) and both values are shown.
+   XBRL data does not record *why* a value changed. A retrospective adjustment for a new
+   accounting standard (for example ASC 606) and a correction of an error both look the
+   same here, so the app says "revised" and the reason must be read from the filing.
 3. If a single filing contains two different values for the same concept and period, an
    error is raised for manual review.
 4. The selection reason (concept rank, unit, period, filing, number of filings seen,
-   restatement) is stored with the value and shown in the dashboard and exports.
+   revision) is stored with the value and shown in the dashboard and exports.
 
 ## 4. Period normalization
 
@@ -92,4 +95,4 @@ were looked for and the as-of date. It is never shown as zero.
 - Only the first approved concept with data is used; if a company switches concepts
   between years, the change is flagged but values are not spliced.
 - 10-K/A and 10-Q/A amendments are eligible like originals; an amendment that changes a
-  value will show as a restatement.
+  value will show as revised.

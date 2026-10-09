@@ -28,9 +28,29 @@ supply only the prior-year balance-sheet dates that FY2025 year-over-year compar
 statement, balance sheet and cash-flow statement pages (EDGAR "R" pages R2/R4/R6) of the
 filings above. Each row has the accession, period, line item, value in millions as printed,
 and the URL of the page it was read from. **No code from this project produced those
-numbers.** Before use, the reference passed its own checks: total assets equal total
-liabilities and equity on all 8 balance-sheet dates, and each three-month cash-flow column
-equals the difference of the year-to-date columns.
+numbers**, and the reconciliation never feeds pipeline output back into the expected column:
+expected values come only from that CSV (derived expectations such as Q4 = FY − 9M or
+margins are computed from CSV rows inside the reconciliation script, never from the
+pipeline).
+
+The reference is re-checked against the filings by `evaluation/verify_reference.py`, which
+uses none of the pipeline's code. It downloads each cited page and the filing's main HTML
+document from www.sec.gov, then:
+
+1. finds the cited line item and period column on the R page and compares the printed
+   number (135 of 135 match; capital expenditures are printed as a negative outflow and
+   stored as a positive amount, as in XBRL);
+2. checks that each value appears as printed in the filing's main 10-Q/10-K document
+   (135 of 135 found).
+
+It also checks the reference internally: total assets equal total liabilities and equity on
+all 8 balance-sheet dates, and each three-month cash-flow column equals the difference of
+the year-to-date columns.
+
+What this does not prove: the R pages are SEC's rendering of the same XBRL that the
+Company Facts API comes from, so a tagging error by Microsoft would appear in both. Check 2
+(the human-readable filing document) guards against that for presence of each number, not
+for its row and column.
 
 ## 3. The data the pipeline ran on
 
@@ -94,13 +114,42 @@ Items from the request, one by one:
   are the 10-K and the Q3 10-Q, both shown with links.
 - **Historical availability.** 247 source facts behind the reconciled values were checked:
   every one was filed on or before the date of the filing being analyzed (0 violations).
-- **Amendments and restatements.** See section 7: real cases exist in Microsoft's history
-  and are now regression tests. FY2025 itself has no restated consolidated figures in later
+- **Amendments and revised figures.** See section 7: real cases exist in Microsoft's history
+  and are now regression tests. FY2025 itself has no revised consolidated figures in later
   filings.
 - **Dashboard and exports.** 205 values exported by the 10 FY2025 analyses (each filing ×
   each comparison) were matched to the reconciled values by metric and exact period: all
   equal, all with sources. `tests/test_dashboard_real.py` drives the Streamlit app on the
   real data, picks the FY2025 10-K annual comparison, and checks the rendered table.
+
+### Demonstration: dashboard and export on the FY2025 10-K
+
+![Dashboard, Microsoft FY2025 10-K, annual comparison](images/dashboard_msft_fy2025_annual.png)
+
+The dashboard (fixture mode on the cached SEC data, FY2025 10-K, annual comparison) shows
+revenue 281.72, operating income 128.53, net income 101.83, operating cash flow 136.16, capex
+64.55 and free cash flow 71.61 (USD billions), matching the 10-K's statements.
+`tests/test_dashboard_real.py` checks the same table automatically.
+
+The Excel export of the same analysis (`earnings-monitor analyze MSFT --accn
+0000950170-25-100235 --comparison annual --xlsx …`), Changes sheet, against the statements
+(USD millions; the export stores whole dollars):
+
+| Metric | FY2025 statement | FY2025 export | FY2024 statement | FY2024 export | Equal |
+|---|---|---|---|---|---|
+| Revenue | 281,724 | 281,724 | 245,122 | 245,122 | yes |
+| Operating income | 128,528 | 128,528 | 109,433 | 109,433 | yes |
+| Net income | 101,832 | 101,832 | 88,136 | 88,136 | yes |
+| Operating cash flow | 136,162 | 136,162 | 118,548 | 118,548 | yes |
+| Capital expenditures | 64,551 | 64,551 | 44,477 | 44,477 | yes |
+| Cash and cash equivalents | 30,242 | 30,242 | 18,315 | 18,315 | yes |
+| Current portion of long-term debt | 2,999 | 2,999 | 2,249 | 2,249 | yes |
+| Long-term debt | 40,152 | 40,152 | 42,688 | 42,688 | yes |
+
+Derived values carry their inputs and sources. For example, in the "Values and sources"
+sheet FY2025 free cash flow is 71,611,000,000 with inputs "Operating cash flow =
+136,162,000,000; Capital expenditures = 64,551,000,000". Both inputs list the 10-K
+0000950170-25-100235 (filed 2025-07-30), the XBRL concept, the period and the EDGAR link.
 
 ## 6. Discrepancies found and fixed
 
@@ -121,43 +170,59 @@ Items from the request, one by one:
 
 None of the FY2025 numbers were wrong; fixes 1 and 2 affected whether the app ran at all.
 
-## 7. Real restatement and amendment cases (beyond FY2025)
+## 7. Revised figures and amendments (beyond FY2025)
 
-- **ASC 606 restatement (FY2017 revenue).** The FY2017 Q1 10-Q (filed 2016-10-20)
-  reported revenue of $20,453M. After adopting the new revenue standard, the FY2018 Q1 10-Q
-  (filed 2017-10-26) restated the same quarter to $21,928M. As of 2016-10-20 the pipeline
-  shows $20,453M; as of 2017-10-26 it shows $21,928M, marked restated, with the original
-  value kept. The later number does not leak backwards.
-- **FY2016 net income restatement.** The FY2016 Q3 10-Q restated Q1 and Q2 net income
-  (4,620 → 4,902 and 4,998 → 5,018) but did not re-tag the six-month total, which remains
-  9,618. The displayed quarters are correct, and the YTD consistency check correctly
-  raises an error that nine months minus the (stale) six months does not equal the reported
-  Q3. This is the intended behavior: the analyst sees the inconsistency instead of a
-  silently mixed number.
+**Terminology.** The app calls a value *revised* when a later filing reports a different
+number for the same period. XBRL data does not say why. A retrospective adjustment for a new
+accounting standard is not a correction of an error, so the app does not call either one
+"corrected"; the reason has to be read from the filing. Both real cases below are
+accounting-policy adoptions, not error corrections. In each, the filing describes the change
+as adopting a new standard, and it does not mention an error.
+
+- **ASC 606 adoption (FY2017 revenue).** The FY2017 Q1 10-Q (filed 2016-10-20) reported
+  revenue of $20,453M. Microsoft early-adopted the FASB's new revenue standard (ASC 606) on
+  July 1, 2017 "using the full retrospective method, which required us to restate each prior
+  reporting period presented" (FY2018 Q1 10-Q, 0001564590-17-020171, under recently adopted accounting guidance). That 10-Q
+  (filed 2017-10-26) shows the same quarter as $21,928M under the new standard. As of
+  2016-10-20 the pipeline shows $20,453M; as of 2017-10-26 it shows $21,928M, marked
+  revised, with the original value kept. The later number does not leak backwards.
+- **Share-based payment standard adoption (FY2016 net income).** The FY2016 Q3 10-Q
+  (0001193125-16-550254) describes the FASB's March 2016 standard on share-based payments
+  (ASU 2016-09) under recently adopted guidance and says "We elected to early adopt the new guidance in the third
+  quarter of fiscal year 2016 which requires us to reflect any adjustments as of July 1,
+  2015" and shows Q1 and Q2 net income "As reported" and "As adjusted" (4,620 → 4,902 and
+  4,998 → 5,018). The filing did not re-tag the six-month total, which remains 9,618 in the
+  data. The displayed quarters are correct, and the YTD consistency check raises an error
+  that nine months minus the (stale) six months does not equal the reported Q3. This is the
+  intended behavior: the analyst sees the inconsistency instead of a silently mixed number.
 - **Amendment.** For FY2012 Q2 the only XBRL source is the 10-Q/A filed 2012-01-27; the
-  pipeline uses it and shows the form as 10-Q/A.
+  pipeline uses it and shows the form as 10-Q/A. Its values match later filings, so this
+  case does not test an amendment that changes a number.
 
-## 8. Whole-history scan (not a pass/fail test)
+No real case of an error correction (a "restatement" in the accounting sense) was found in
+Microsoft's data, so that path is covered only by synthetic tests.
 
-All 68 Microsoft 10-K/10-Q filings were analyzed with every valid comparison (153 runs, no
-crashes). The gaps found are shown as *missing*, never filled in:
+## 8. Not supported or not verified
 
-- **Operating cash flow, FY2014–FY2018.** Microsoft tagged it
-  `NetCashProvidedByUsedInOperatingActivitiesContinuingOperations` in those years. That
-  concept excludes discontinued operations, so it is not on the approved list; adding it
-  safely needs a check that discontinued operations are zero. Left for a later decision.
-- **Current portion of long-term debt, FY2009–FY2012**: not tagged with an approved concept.
+These are shown as *missing* in the app, never filled in or guessed.
+
+| Gap | Effect | Status |
+|---|---|---|
+| Microsoft tagged operating cash flow as `NetCashProvidedByUsedInOperatingActivitiesContinuingOperations` in FY2014–FY2018 (instead of `NetCashProvidedByUsedInOperatingActivities`) | Operating cash flow, free cash flow and cash conversion are missing for those years | Not supported. The tag excludes discontinued operations, so adding it safely needs a check that discontinued operations are zero. Open decision. |
+| Current portion of long-term debt not tagged with an approved concept, FY2009–FY2012 | Current debt and total debt missing for those years | Not supported |
+| Short-term debt / commercial paper | Not part of "total debt" | Outside milestone 1 metrics (8 NOT COVERED rows) |
+| Salesforce and Adobe | No real-data verification yet | Not verified (milestone 3) |
+| Microsoft fiscal years other than FY2025 | Run without crashes (all 68 filings, 153 analyses), but values not checked against statements | Not verified |
+| Error-correction restatements, number-changing amendments | Logic covered by synthetic tests only | Not verified on real data |
 
 ## 9. Speed
 
 On the cloud test machine: first load of Microsoft's 32,671 facts ≈ 2 s; a reload of
 unchanged data ≈ 0.9 s (skipped by hash); the full reconciliation ≈ 26 s; the whole test
-suite (156 tests) ≈ 45 s. No API cost: SEC's APIs are free and only two requests are made.
+suite (156 tests) ≈ 42 s; re-checking the reference against the filings ≈ 28 s. No API cost: SEC's APIs are free and only two requests are made.
 
-## 10. What remains unverified
+## 10. Other notes
 
-- Salesforce and Adobe (milestone 3).
 - The YTD-subtraction path for Q2/Q3 is exercised on real data only for Q4, because
   Microsoft prints three-month cash-flow columns; Q2/Q3 YTD subtraction is covered by
   synthetic tests.
-- An amendment that changes numbers (the FY2012 10-Q/A matches later filings).

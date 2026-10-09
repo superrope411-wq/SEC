@@ -53,7 +53,7 @@ screen and in every export. It never substitutes invented numbers.
   formula and inputs for derived values, and why that fact was selected.
 - Findings panel driven by transparent rules with stated thresholds.
 - Trend charts of standalone quarters.
-- Validation tab: missing data, restatements, balance-sheet identity, YTD consistency.
+- Validation tab: missing data, revised values, balance-sheet identity, YTD consistency.
 - Excel workbook (Summary, Changes, Findings, Values and sources, Unresolved issues,
   Checks passed, Definitions) and CSV downloads.
 
@@ -72,5 +72,6 @@ screen and in every export. It never substitutes invented numbers.
 
 Milestone 1 is verified on real data: Microsoft FY2025 (three 10-Qs and the 10-K) reconciles
 200/200 against figures read independently from the filings, and dashboard and export
-values match. Run `python evaluation/reconcile_msft_fy2025.py` to reproduce; details in
+values match. Run `python evaluation/reconcile_msft_fy2025.py` to reproduce, and
+`python evaluation/verify_reference.py` to re-check the expected values against the filings; details in
 [docs/REAL_DATA_VERIFICATION.md](docs/REAL_DATA_VERIFICATION.md).
