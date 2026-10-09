@@ -2,17 +2,19 @@
 
 A research assistant for financial analysts: pull a company's SEC filings, normalize
 quarterly and annual financials, compute what changed, and make every number traceable to
-the filing it came from. Deterministic Python does all the math; AI (later milestones)
-will only explain numbers that already carry sources.
+the filing it came from. Deterministic Python does all the math; AI only explains numbers
+that already carry sources, citing passages of the filing, and every statement it makes is
+checked in code before it is shown.
 
-Specification: [PROJECT_SPEC.md](PROJECT_SPEC.md). Milestone 1 (this version) is the
-verified financial pipeline and dashboard with no AI.
+Specification: [PROJECT_SPEC.md](PROJECT_SPEC.md). Milestone 1 is the verified financial
+pipeline and dashboard. Milestone 2 (this version) adds evidence-backed explanations for
+Microsoft FY2025; see [docs/AI_EXPLANATIONS.md](docs/AI_EXPLANATIONS.md).
 
 ## Setup
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev,ai]"   # "ai" adds the Anthropic SDK; everything else works without it
 cp .env.example .env     # then set SEC_USER_AGENT="Your Name you@example.com"
 ```
 
@@ -26,7 +28,9 @@ earnings-monitor ingest MSFT                 # download + cache + load (2 reques
 earnings-monitor filings MSFT                # list 10-K / 10-Q filings
 earnings-monitor analyze MSFT --comparison yoy --xlsx msft.xlsx --csv msft.csv
 streamlit run app/dashboard.py               # analyst dashboard
-pytest                                       # 156 tests (synthetic + cached real MSFT data), offline
+pytest                                       # 197 tests, offline (also run by GitHub Actions CI)
+python evaluation/run_m2_eval.py             # explanation evaluation, offline part (free)
+python evaluation/run_m2_eval.py --live      # with ANTHROPIC_API_KEY: calls the model (costs money)
 ```
 
 `earnings-monitor ingest MSFT --refresh` re-downloads to check for new filings.
@@ -52,6 +56,11 @@ screen and in every export. It never substitutes invented numbers.
   `missing`), with evidence for every number: XBRL concept, period, filing, EDGAR link,
   formula and inputs for derived values, and why that fact was selected.
 - Findings panel driven by transparent rules with stated thresholds.
+- Explanations tab: pick a change and ask why. Shows the passages retrieved from the filing
+  (with evidence IDs, page and a link that opens the filing at the passage), and on request
+  a model explanation split into the calculated change, what the filing says (with exact
+  quotes), and labeled inference, plus anything the checks rejected and the call's tokens
+  and cost. Answers are cached; a spending cap stops calls. Needs `ANTHROPIC_API_KEY`.
 - Trend charts of standalone quarters.
 - Validation tab: missing data, revised values, balance-sheet identity, YTD consistency.
 - Excel workbook (Summary, Changes, Findings, Values and sources, Unresolved issues,
@@ -66,6 +75,7 @@ screen and in every export. It never substitutes invented numbers.
 - [docs/SOURCES.md](docs/SOURCES.md): SEC documentation checked, with quotes
 - [docs/LIMITATIONS.md](docs/LIMITATIONS.md): known failure modes
 - [docs/REAL_DATA_VERIFICATION.md](docs/REAL_DATA_VERIFICATION.md): Microsoft FY2025 checked against the filings
+- [docs/AI_EXPLANATIONS.md](docs/AI_EXPLANATIONS.md): Milestone 2 design, checks, evaluation and measured results
 - [evaluation/](evaluation/): reference dataset, reconciliation script and workbook, golden-set scorer
 
 ## Status

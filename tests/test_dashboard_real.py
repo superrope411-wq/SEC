@@ -35,3 +35,26 @@ def test_dashboard_matches_reconciled_values(tmp_path, monkeypatch):
     for metric, (cur, pri) in expected.items():
         assert (table.loc[metric, "Current"], table.loc[metric, "Prior"]) == (cur, pri), metric
     assert any("USD billions" in c.value for c in at.caption)
+
+
+def test_explanations_tab_works_without_an_api_key(tmp_path, monkeypatch):
+    """Evidence is shown and nothing is generated or charged when no key is configured."""
+    monkeypatch.setenv("EM_MODE", "fixture")
+    monkeypatch.setenv("EM_FIXTURE_DIR", str(ROOT / "tests" / "fixtures" / "real"))
+    monkeypatch.setenv("EM_DATA_DIR", str(tmp_path))
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    at = st_testing.AppTest.from_file(str(ROOT / "app" / "dashboard.py"), default_timeout=300)
+    at.run()
+    at.sidebar.selectbox[1].set_value(TEN_K).run()
+    at.sidebar.selectbox[2].set_value("annual").run()
+    assert not at.exception
+    question = next(s for s in at.selectbox if s.label == "Question")
+    assert question.value == "Why did revenue change from the prior fiscal year?"
+    md = " ".join(m.value for m in at.markdown)
+    assert "0000950170-25-100235:PII-I7:e21d80cc7e" in md  # the MD&A revenue paragraph is offered as evidence
+    assert any("Set ANTHROPIC_API_KEY" in i.value for i in at.info)
+    assert not [b for b in at.button if b.label == "Generate explanation"]
+    question.set_value("Custom question…").run()
+    next(t for t in at.text_input if t.label == "Your question").set_value("Why did Adobe's revenue grow?").run()
+    assert any("Insufficient evidence" in w.value for w in at.warning)
+    assert any("0 API calls" in c.value for c in at.caption)
