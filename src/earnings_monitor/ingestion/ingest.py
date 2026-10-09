@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gzip
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -63,9 +64,15 @@ def _load_fixture(cache: RawCache, fixture_dir: Path | None, kind: str, company:
     if fixture_dir is None:
         raise FixtureMissing("EM_MODE=fixture requires EM_FIXTURE_DIR")
     path = Path(fixture_dir) / kind / f"CIK{company.cik10}.json"
-    if not path.exists():
+    gz = path.with_suffix(".json.gz")
+    if gz.exists():
+        with gzip.open(gz, "rb") as fh:
+            body = fh.read()
+    elif path.exists():
+        body = path.read_bytes()
+    else:
         raise FixtureMissing(
-            f"No fixture at {path}. Save the SEC response from {url} there. "
+            f"No fixture at {path} (or {gz.name}). Save the SEC response from {url} there. "
             "Fixture mode never invents data."
         )
-    return cache.store(kind, company.cik10, url, path.read_bytes(), source="fixture")
+    return cache.store(kind, company.cik10, url, body, source="fixture")
