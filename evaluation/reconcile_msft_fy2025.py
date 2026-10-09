@@ -161,7 +161,9 @@ def main() -> int:
                             expected_musd * 1e6 if kind == "USD" else expected_musd,
                         "Actual (pipeline)": actual, "Difference": diff,
                         "Tolerance": USD_TOL if kind == "USD" else RATIO_TOL, "Status": status,
-                        "Expected source": expected_note, "Actual sources": src, "Note": note})
+                        "Expected source": expected_note, "Actual sources": src, "Note": note,
+                        "Metric ID": metric_id, "_accn": accn,
+                        "_start": v.period_start if v is not None else None, "_end": v.period_end if v is not None else None})
 
     def pretty(start, end):
         return f"{start}..{end}" if start else f"at {end}"
@@ -279,25 +281,34 @@ def main() -> int:
                              "Liabilities + equity (M)": le, "Equal": r["value_musd"] == le})
 
     # ---- 5. Dashboard/export values equal the reconciled values -----------------------------
+    # Every value that the export of each analysis shows for a reconciled metric and period must
+    # equal the reconciled (PASS) value, matched by metric id and exact period dates.
+    passed = {(rec["_accn"], rec["Metric ID"], rec["_start"], rec["_end"]): rec
+              for rec in records if rec["Status"] == "PASS"}
     export_rows = []
     for accn, comps in analyses.items():
         for comp, a in comps.items():
-            cf = changes_frame(a)
             vf = values_frame(a)
-            for rec in records:
-                if rec["Status"] != "PASS" or rec["Analysis of filing"] != FILINGS[accn][0]:
+            cf = changes_frame(a)
+            for row in vf.to_dict("records"):
+                start = row["Period start"] if pd.notna(row["Period start"]) else None
+                rec = passed.get((accn, row["Metric ID"], start, row["Period end"]))
+                if rec is None:
                     continue
-                hit = vf[(vf["Metric"].str.lower().str.startswith(rec["Metric"].split(" (")[0].lower()[:12])) &
-                         (vf["Period end"].astype(str) == rec["Period"][-10:])]
-                if len(hit):
-                    export_rows.append({"Filing": FILINGS[accn][0], "Comparison": comp, "Metric": rec["Metric"],
-                                        "Period": rec["Period"], "Reconciled value": rec["Actual (pipeline)"],
-                                        "Export 'Values and sources' value": hit["Value"].iloc[0],
-                                        "Equal": abs(float(hit["Value"].iloc[0]) - rec["Actual (pipeline)"]) < 1e-6
-                                        if pd.notna(hit["Value"].iloc[0]) else False})
+                side = "Current" if row["Period"] == a.current_label else "Prior"
+                change_val = cf.loc[cf["Metric ID"] == row["Metric ID"], f"{side} value"]
+                exported = row["Value"]
+                export_rows.append({"Filing": FILINGS[accn][0], "Comparison": comp, "Metric": row["Metric"],
+                                    "Metric ID": row["Metric ID"], "Period": row["Period"], "Reconciled value": rec["Actual (pipeline)"],
+                                    "Export 'Values and sources' value": exported,
+                                    "Export 'Changes' value": change_val.iloc[0] if len(change_val) else None,
+                                    "Sources in export": row["Sources"],
+                                    "Equal": pd.notna(exported) and exported == rec["Actual (pipeline)"]
+                                    and len(change_val) == 1 and change_val.iloc[0] == exported
+                                    and bool(row["Sources"])})
 
     # ---- write ------------------------------------------------------------------------------
-    df = pd.DataFrame(records)
+    df = pd.DataFrame(records).drop(columns=["_accn", "_start", "_end"])
     prov = pd.DataFrame(provenance)
     counted = df[df["Status"] != "NOT COVERED"]
     summary = pd.DataFrame([
@@ -308,9 +319,11 @@ def main() -> int:
         ("NOT COVERED (documented limitation)", int((df["Status"] == "NOT COVERED").sum())),
         ("Provenance rows checked", len(prov)),
         ("Sources filed after as-of date", int((prov["Available by as-of?"] == "NO").sum()) if len(prov) else 0),
+        ("Exported values checked against reconciled values", len(export_rows)),
+        ("Exported values that differ or lack sources", sum(not r["Equal"] for r in export_rows)),
         ("USD tolerance", USD_TOL), ("Ratio tolerance", RATIO_TOL),
         ("Pipeline data source", data.data_source), ("Raw companyfacts SHA-256", data.raw_sha256),
-        ("Fixture manifest", str(manifest)),
+        ("Fixture manifest", str(manifest.relative_to(ROOT))),
     ], columns=["Item", "Value"])
     with pd.ExcelWriter(OUT_XLSX, engine="openpyxl") as xw:
         summary.to_excel(xw, sheet_name="Summary", index=False)
@@ -338,7 +351,11 @@ def main() -> int:
         print("\nFAILURES:")
         print(fails[["Analysis of filing", "Metric", "Period", "Expected (USD, from statement)", "Actual (pipeline)", "Note"]].to_string(index=False))
     print(f"\nwrote {OUT_XLSX}\nwrote {OUT_MD}")
-    return 0 if len(fails) == 0 else 1
+    bad_exports = [r for r in export_rows if not r["Equal"]]
+    if bad_exports:
+        print("\nEXPORT MISMATCHES:")
+        print(pd.DataFrame(bad_exports).to_string(index=False))
+    return 0 if len(fails) == 0 and not bad_exports else 1
 
 
 if __name__ == "__main__":

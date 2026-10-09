@@ -1,9 +1,11 @@
 # Limitations and known failure modes (milestone 1)
 
-- **Real-data verification is pending.** The cloud environment used to build this
-  milestone could not reach `data.sec.gov` (network policy), so the pipeline has been
-  validated only on synthetic fixtures with known answers. The golden-set comparison in
-  `evaluation/` must be run on real Microsoft filings before milestone 1 is accepted.
+- **Verified on one company and one fiscal year.** Microsoft FY2025 reconciles 200/200
+  against figures read from the filings ([REAL_DATA_VERIFICATION.md](REAL_DATA_VERIFICATION.md)).
+  Salesforce and Adobe are not yet verified.
+- **Operating cash flow tagged as "continuing operations" is not used.** Microsoft used
+  `NetCashProvidedByUsedInOperatingActivitiesContinuingOperations` in FY2014–FY2018, so
+  operating cash flow, free cash flow and cash conversion show as missing for those years.
 - **Only standard `us-gaap` concepts.** Company extension concepts are ignored; a metric a
   company reports only under its own tag shows as missing.
 - **Concept lists are curated, not exhaustive.** If a company uses an unexpected tag (for
@@ -14,7 +16,9 @@
 - **Derived quarters inherit restatements.** A Q4 derived from a 10-K and a Q3 10-Q uses the
   latest values available as of the as-of date; if the 10-K restated nine-month figures and
   the restated YTD was not re-tagged, the derived Q4 could be off. The two source facts are
-  always shown so this can be checked.
+  always shown so this can be checked. Real example: Microsoft's FY2016 Q3 10-Q restated
+  Q1 and Q2 net income without re-tagging the six-month total; the YTD consistency check
+  reports this as an error rather than hiding it.
 - **Restatement detection is value-based.** A fact that was corrected in a later filing is
   flagged; a correction that only appears in an amendment's text (not XBRL) is not seen.
 - **Fiscal calendar detection needs 10-K data.** A company with fewer than one full fiscal

@@ -93,7 +93,7 @@ def filing_info(data: CompanyData, accn: str) -> FilingInfo:
 def filing_quarter(data: CompanyData, f: FilingInfo) -> FiscalQuarter:
     end = f.report_date
     if end is None:
-        ends = data.obs[data.obs["accn"] == f.accn]["end"]
+        ends = data.obs[(data.obs["accn"] == f.accn) & (data.obs["taxonomy"] == "us-gaap")]["end"]
         if ends.empty:
             raise AnalysisError(f"No facts found for filing {f.accn}")
         end = ends.max()

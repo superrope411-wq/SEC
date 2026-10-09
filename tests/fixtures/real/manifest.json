@@ -1,0 +1,25 @@
+{
+  "description": "Unmodified SEC EDGAR API responses for Microsoft (CIK 0000789019), gzip-compressed. sha256_uncompressed is the hash of the exact bytes SEC returned.",
+  "user_agent": "Ronin SEC-scanner superrope411@gmail.com",
+  "downloaded_by": "scripts/save_fixture.py from a Claude Code cloud session",
+  "files": [
+    {
+      "kind": "submissions",
+      "url": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "path": "submissions/CIK0000789019.json.gz",
+      "downloaded_at_utc": "2026-10-09T18:21:33+00:00",
+      "bytes": 185250,
+      "sha256_uncompressed": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c",
+      "sha256_gz": "93cb3f057dc82ac5a0f511b6ab3c7f7a24493c99a353d7d58610942aefce3ea1"
+    },
+    {
+      "kind": "companyfacts",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+      "path": "companyfacts/CIK0000789019.json.gz",
+      "downloaded_at_utc": "2026-10-09T18:21:33+00:00",
+      "bytes": 4881196,
+      "sha256_uncompressed": "f8aae2965b20ad0df44bdf7ccbedf797d275b6b8dc030154a7a311361bb7246f",
+      "sha256_gz": "54d8361b5df26cae9880252ab47e7a4eda850b6549b24a792b4f4f7ed73dbcb3"
+    }
+  ]
+}

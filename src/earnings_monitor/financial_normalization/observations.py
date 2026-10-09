@@ -81,8 +81,9 @@ def filings_from_submissions(doc: dict) -> pd.DataFrame:
 
 def filings_from_facts(obs: pd.DataFrame) -> pd.DataFrame:
     """Fallback filing list when submissions data is unavailable: one row per accession,
-    report date = latest period end that filing reports."""
-    o = obs[obs["form"].isin(ALLOWED_FORMS)]
+    report date = latest period end among that filing's financial-statement (us-gaap) facts.
+    Cover-page (dei) facts are excluded: share counts are dated weeks after the period end."""
+    o = obs[obs["form"].isin(ALLOWED_FORMS) & (obs["taxonomy"] == "us-gaap")]
     g = o.groupby("accn").agg(form=("form", "first"), filed=("filed", "min"), report_date=("end", "max")).reset_index()
     g["primary_document"] = ""
     return g.sort_values("filed", ascending=False).reset_index(drop=True)

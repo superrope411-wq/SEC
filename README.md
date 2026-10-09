@@ -26,7 +26,7 @@ earnings-monitor ingest MSFT                 # download + cache + load (2 reques
 earnings-monitor filings MSFT                # list 10-K / 10-Q filings
 earnings-monitor analyze MSFT --comparison yoy --xlsx msft.xlsx --csv msft.csv
 streamlit run app/dashboard.py               # analyst dashboard
-pytest                                       # 36 tests on synthetic fixtures, offline
+pytest                                       # 156 tests (synthetic + cached real MSFT data), offline
 ```
 
 `earnings-monitor ingest MSFT --refresh` re-downloads to check for new filings.
@@ -39,7 +39,9 @@ If SEC is unreachable, save real responses once (from a machine that can reach S
 python scripts/save_fixture.py MSFT fixtures/
 ```
 
-then run with `EM_MODE=fixture EM_FIXTURE_DIR=fixtures`. Fixture mode is labeled on every
+then run with `EM_MODE=fixture EM_FIXTURE_DIR=fixtures`. Real Microsoft responses (downloaded
+2026-10-09, hashes in `tests/fixtures/real/manifest.json`) are included:
+`EM_MODE=fixture EM_FIXTURE_DIR=tests/fixtures/real`. Fixture mode is labeled on every
 screen and in every export. It never substitutes invented numbers.
 
 ## What the dashboard shows
@@ -63,10 +65,12 @@ screen and in every export. It never substitutes invented numbers.
 - [docs/COMPANY_SELECTION.md](docs/COMPANY_SELECTION.md): Microsoft / Salesforce / Adobe comparability
 - [docs/SOURCES.md](docs/SOURCES.md): SEC documentation checked, with quotes
 - [docs/LIMITATIONS.md](docs/LIMITATIONS.md): known failure modes
-- [evaluation/](evaluation/): golden-set template and scorer
+- [docs/REAL_DATA_VERIFICATION.md](docs/REAL_DATA_VERIFICATION.md): Microsoft FY2025 checked against the filings
+- [evaluation/](evaluation/): reference dataset, reconciliation script and workbook, golden-set scorer
 
 ## Status
 
-Milestone 1 code is complete and tested against synthetic fixtures. Verification against
-real Microsoft filings (the acceptance criterion) is pending SEC network access from the
-build environment; see docs/LIMITATIONS.md.
+Milestone 1 is verified on real data: Microsoft FY2025 (three 10-Qs and the 10-K) reconciles
+200/200 against figures read independently from the filings, and dashboard and export
+values match. Run `python evaluation/reconcile_msft_fy2025.py` to reproduce; details in
+[docs/REAL_DATA_VERIFICATION.md](docs/REAL_DATA_VERIFICATION.md).
