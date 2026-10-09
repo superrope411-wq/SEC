@@ -1,0 +1,136 @@
+statement,accn,form,filed,period_start,period_end,line_item,metric_id,value_musd,source_url,note
+income,0000950170-24-118967,10-Q,2024-10-30,2024-07-01,2024-09-30,Revenue,revenue,65585,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R2.htm,3 months ended Sep. 30 2024
+income,0000950170-24-118967,10-Q,2024-10-30,2024-07-01,2024-09-30,Operating income,operating_income,30552,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R2.htm,
+income,0000950170-24-118967,10-Q,2024-10-30,2024-07-01,2024-09-30,Net income,net_income,24667,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R2.htm,
+cashflow,0000950170-24-118967,10-Q,2024-10-30,2024-07-01,2024-09-30,Net cash from operations,operating_cash_flow,34180,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R6.htm,
+cashflow,0000950170-24-118967,10-Q,2024-10-30,2024-07-01,2024-09-30,Additions to property and equipment,capex,14923,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R6.htm,printed as -14923 (outflow); stored as positive payment
+income,0000950170-24-118967,10-Q,2024-10-30,2023-07-01,2023-09-30,Revenue,revenue,56517,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R2.htm,prior-year comparative column
+income,0000950170-24-118967,10-Q,2024-10-30,2023-07-01,2023-09-30,Operating income,operating_income,26895,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R2.htm,
+income,0000950170-24-118967,10-Q,2024-10-30,2023-07-01,2023-09-30,Net income,net_income,22291,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R2.htm,
+cashflow,0000950170-24-118967,10-Q,2024-10-30,2023-07-01,2023-09-30,Net cash from operations,operating_cash_flow,30583,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R6.htm,
+cashflow,0000950170-24-118967,10-Q,2024-10-30,2023-07-01,2023-09-30,Additions to property and equipment,capex,9917,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R6.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Cash and cash equivalents,cash,20840,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Accounts receivable net,accounts_receivable,44148,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Short-term debt,short_term_debt,0,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Current portion of long-term debt,debt_current,2249,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Long-term debt,debt_noncurrent,42868,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Short-term unearned revenue,deferred_revenue_current,53026,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Long-term unearned revenue,deferred_revenue_noncurrent,2663,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Total assets,assets,523013,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+balance,0000950170-24-118967,10-Q,2024-10-30,,2024-09-30,Total liabilities and stockholders equity,liabilities_and_equity,523013,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R4.htm,
+cashflow,0000950170-24-118967,10-Q,2024-10-30,,2023-09-30,Cash and cash equivalents end of period,cash,80452,https://www.sec.gov/Archives/edgar/data/789019/000095017024118967/R6.htm,prior-year quarter-end cash from the cash flow statement
+income,0000950170-25-010491,10-Q,2025-01-29,2024-10-01,2024-12-31,Revenue,revenue,69632,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,3 months ended Dec. 31 2024
+income,0000950170-25-010491,10-Q,2025-01-29,2024-10-01,2024-12-31,Operating income,operating_income,31653,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+income,0000950170-25-010491,10-Q,2025-01-29,2024-10-01,2024-12-31,Net income,net_income,24108,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+cashflow,0000950170-25-010491,10-Q,2025-01-29,2024-10-01,2024-12-31,Net cash from operations,operating_cash_flow,22291,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,3-month column reported directly
+cashflow,0000950170-25-010491,10-Q,2025-01-29,2024-10-01,2024-12-31,Additions to property and equipment,capex,15804,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,
+income,0000950170-25-010491,10-Q,2025-01-29,2023-10-01,2023-12-31,Revenue,revenue,62020,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+income,0000950170-25-010491,10-Q,2025-01-29,2023-10-01,2023-12-31,Operating income,operating_income,27032,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+income,0000950170-25-010491,10-Q,2025-01-29,2023-10-01,2023-12-31,Net income,net_income,21870,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+cashflow,0000950170-25-010491,10-Q,2025-01-29,2023-10-01,2023-12-31,Net cash from operations,operating_cash_flow,18853,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,
+cashflow,0000950170-25-010491,10-Q,2025-01-29,2023-10-01,2023-12-31,Additions to property and equipment,capex,9735,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,
+income,0000950170-25-010491,10-Q,2025-01-29,2024-07-01,2024-12-31,Revenue,revenue,135217,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,6 months year-to-date
+income,0000950170-25-010491,10-Q,2025-01-29,2024-07-01,2024-12-31,Operating income,operating_income,62205,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+income,0000950170-25-010491,10-Q,2025-01-29,2024-07-01,2024-12-31,Net income,net_income,48775,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R2.htm,
+cashflow,0000950170-25-010491,10-Q,2025-01-29,2024-07-01,2024-12-31,Net cash from operations,operating_cash_flow,56471,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,
+cashflow,0000950170-25-010491,10-Q,2025-01-29,2024-07-01,2024-12-31,Additions to property and equipment,capex,30727,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Cash and cash equivalents,cash,17482,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Accounts receivable net,accounts_receivable,48188,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Short-term debt,short_term_debt,0,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Current portion of long-term debt,debt_current,5248,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Long-term debt,debt_noncurrent,39722,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Short-term unearned revenue,deferred_revenue_current,45508,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Long-term unearned revenue,deferred_revenue_noncurrent,2537,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Total assets,assets,533898,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+balance,0000950170-25-010491,10-Q,2025-01-29,,2024-12-31,Total liabilities and stockholders equity,liabilities_and_equity,533898,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R4.htm,
+cashflow,0000950170-25-010491,10-Q,2025-01-29,,2023-12-31,Cash and cash equivalents end of period,cash,17305,https://www.sec.gov/Archives/edgar/data/789019/000095017025010491/R6.htm,prior-year quarter-end cash from the cash flow statement
+income,0000950170-25-061046,10-Q,2025-04-30,2025-01-01,2025-03-31,Revenue,revenue,70066,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,3 months ended Mar. 31 2025
+income,0000950170-25-061046,10-Q,2025-04-30,2025-01-01,2025-03-31,Operating income,operating_income,32000,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2025-01-01,2025-03-31,Net income,net_income,25824,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2025-01-01,2025-03-31,Net cash from operations,operating_cash_flow,37044,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2025-01-01,2025-03-31,Additions to property and equipment,capex,16745,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2024-01-01,2024-03-31,Revenue,revenue,61858,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2024-01-01,2024-03-31,Operating income,operating_income,27581,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2024-01-01,2024-03-31,Net income,net_income,21939,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2024-01-01,2024-03-31,Net cash from operations,operating_cash_flow,31917,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2024-01-01,2024-03-31,Additions to property and equipment,capex,10952,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2024-07-01,2025-03-31,Revenue,revenue,205283,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,9 months year-to-date
+income,0000950170-25-061046,10-Q,2025-04-30,2024-07-01,2025-03-31,Operating income,operating_income,94205,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2024-07-01,2025-03-31,Net income,net_income,74599,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2024-07-01,2025-03-31,Net cash from operations,operating_cash_flow,93515,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2024-07-01,2025-03-31,Additions to property and equipment,capex,47472,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2023-07-01,2024-03-31,Revenue,revenue,180395,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,prior-year 9 months
+income,0000950170-25-061046,10-Q,2025-04-30,2023-07-01,2024-03-31,Operating income,operating_income,81508,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+income,0000950170-25-061046,10-Q,2025-04-30,2023-07-01,2024-03-31,Net income,net_income,66100,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R2.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2023-07-01,2024-03-31,Net cash from operations,operating_cash_flow,81353,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,2023-07-01,2024-03-31,Additions to property and equipment,capex,30604,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Cash and cash equivalents,cash,28828,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Accounts receivable net,accounts_receivable,51700,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Short-term debt,short_term_debt,0,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Current portion of long-term debt,debt_current,2999,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Long-term debt,debt_noncurrent,39882,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Short-term unearned revenue,deferred_revenue_current,44636,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Long-term unearned revenue,deferred_revenue_noncurrent,2840,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Total assets,assets,562624,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+balance,0000950170-25-061046,10-Q,2025-04-30,,2025-03-31,Total liabilities and stockholders equity,liabilities_and_equity,562624,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R4.htm,
+cashflow,0000950170-25-061046,10-Q,2025-04-30,,2024-03-31,Cash and cash equivalents end of period,cash,19634,https://www.sec.gov/Archives/edgar/data/789019/000095017025061046/R6.htm,prior-year quarter-end cash from the cash flow statement
+income,0000950170-25-100235,10-K,2025-07-30,2024-07-01,2025-06-30,Revenue,revenue,281724,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,12 months ended Jun. 30 2025
+income,0000950170-25-100235,10-K,2025-07-30,2024-07-01,2025-06-30,Operating income,operating_income,128528,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+income,0000950170-25-100235,10-K,2025-07-30,2024-07-01,2025-06-30,Net income,net_income,101832,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+cashflow,0000950170-25-100235,10-K,2025-07-30,2024-07-01,2025-06-30,Net cash from operations,operating_cash_flow,136162,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm,
+cashflow,0000950170-25-100235,10-K,2025-07-30,2024-07-01,2025-06-30,Additions to property and equipment,capex,64551,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm,
+income,0000950170-25-100235,10-K,2025-07-30,2023-07-01,2024-06-30,Revenue,revenue,245122,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,prior fiscal year column
+income,0000950170-25-100235,10-K,2025-07-30,2023-07-01,2024-06-30,Operating income,operating_income,109433,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+income,0000950170-25-100235,10-K,2025-07-30,2023-07-01,2024-06-30,Net income,net_income,88136,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+cashflow,0000950170-25-100235,10-K,2025-07-30,2023-07-01,2024-06-30,Net cash from operations,operating_cash_flow,118548,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm,
+cashflow,0000950170-25-100235,10-K,2025-07-30,2023-07-01,2024-06-30,Additions to property and equipment,capex,44477,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm,
+income,0000950170-25-100235,10-K,2025-07-30,2022-07-01,2023-06-30,Revenue,revenue,211915,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+income,0000950170-25-100235,10-K,2025-07-30,2022-07-01,2023-06-30,Operating income,operating_income,88523,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+income,0000950170-25-100235,10-K,2025-07-30,2022-07-01,2023-06-30,Net income,net_income,72361,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R2.htm,
+cashflow,0000950170-25-100235,10-K,2025-07-30,2022-07-01,2023-06-30,Net cash from operations,operating_cash_flow,87582,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm,
+cashflow,0000950170-25-100235,10-K,2025-07-30,2022-07-01,2023-06-30,Additions to property and equipment,capex,28107,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Cash and cash equivalents,cash,30242,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Accounts receivable net,accounts_receivable,69905,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Short-term debt,short_term_debt,0,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Current portion of long-term debt,debt_current,2999,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Long-term debt,debt_noncurrent,40152,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Short-term unearned revenue,deferred_revenue_current,64555,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Long-term unearned revenue,deferred_revenue_noncurrent,2710,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Total assets,assets,619003,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2025-06-30,Total liabilities and stockholders equity,liabilities_and_equity,619003,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Cash and cash equivalents,cash,18315,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,prior fiscal year-end column
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Accounts receivable net,accounts_receivable,56924,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Short-term debt,short_term_debt,6693,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Current portion of long-term debt,debt_current,2249,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Long-term debt,debt_noncurrent,42688,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Short-term unearned revenue,deferred_revenue_current,57582,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Long-term unearned revenue,deferred_revenue_noncurrent,2602,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Total assets,assets,512163,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-25-100235,10-K,2025-07-30,,2024-06-30,Total liabilities and stockholders equity,liabilities_and_equity,512163,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Cash and cash equivalents,cash,80452,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,FY2024 Q1 10-Q; prior-year quarter-end for FY2025 Q1 comparisons
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Accounts receivable net,accounts_receivable,36953,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Short-term debt,short_term_debt,25808,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Current portion of long-term debt,debt_current,3748,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Long-term debt,debt_noncurrent,41946,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Short-term unearned revenue,deferred_revenue_current,46429,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Long-term unearned revenue,deferred_revenue_noncurrent,2759,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Total assets,assets,445785,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-23-054855,10-Q,2023-10-24,,2023-09-30,Total liabilities and stockholders equity,liabilities_and_equity,445785,https://www.sec.gov/Archives/edgar/data/789019/000095017023054855/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Cash and cash equivalents,cash,17305,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,FY2024 Q2 10-Q
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Accounts receivable net,accounts_receivable,42831,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Short-term debt,short_term_debt,27041,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Current portion of long-term debt,debt_current,2250,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Long-term debt,debt_noncurrent,44928,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Short-term unearned revenue,deferred_revenue_current,43068,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Long-term unearned revenue,deferred_revenue_noncurrent,2966,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Total assets,assets,470558,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-008814,10-Q,2024-01-30,,2023-12-31,Total liabilities and stockholders equity,liabilities_and_equity,470558,https://www.sec.gov/Archives/edgar/data/789019/000095017024008814/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Cash and cash equivalents,cash,19634,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,FY2024 Q3 10-Q
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Accounts receivable net,accounts_receivable,44029,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Short-term debt,short_term_debt,20535,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,not covered by pipeline metrics (documented limitation)
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Current portion of long-term debt,debt_current,2249,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Long-term debt,debt_noncurrent,42658,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Short-term unearned revenue,deferred_revenue_current,41888,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Long-term unearned revenue,deferred_revenue_noncurrent,2945,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Total assets,assets,484275,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,
+balance,0000950170-24-048288,10-Q,2024-04-25,,2024-03-31,Total liabilities and stockholders equity,liabilities_and_equity,484275,https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/R4.htm,

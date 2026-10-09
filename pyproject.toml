@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "earnings-monitor"
+version = "0.1.0"
+description = "Quarterly Earnings Change Monitor: traceable quarter-over-quarter analysis of SEC filings"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "pandas>=2.1",
+    "pydantic>=2.5",
+    "openpyxl>=3.1",
+    "streamlit>=1.30",
+    "plotly>=5.18",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+earnings-monitor = "earnings_monitor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
