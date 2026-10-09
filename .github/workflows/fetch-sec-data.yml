@@ -1,0 +1,71 @@
+# Downloads a company's official SEC EDGAR API responses (submissions + companyfacts)
+# on a GitHub-hosted runner and commits them, gzipped, as real-data fixtures.
+#
+# Why: SEC data must be fetched with a declared User-Agent from a network that can reach
+# data.sec.gov. The files are the unmodified SEC responses; the manifest records URL,
+# time and SHA-256 so anyone can re-download and compare.
+name: Fetch SEC data fixtures
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: "Ticker configured in earnings_monitor.config (MSFT, CRM, ADBE)"
+        required: true
+        default: "MSFT"
+      user_agent:
+        description: "SEC-required identification: 'Name email@example.com'"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Download from SEC
+        env:
+          SEC_USER_AGENT: ${{ inputs.user_agent }}
+          TICKER: ${{ inputs.ticker }}
+        run: |
+          python scripts/save_fixture.py "${{ inputs.ticker }}" tests/fixtures/real
+          python - <<'PY'
+          import gzip, hashlib, json, os, shutil, time
+          from pathlib import Path
+          from earnings_monitor.config import COMPANIES
+          c = COMPANIES[os.environ["TICKER"]]
+          root = Path("tests/fixtures/real")
+          manifest_path = root / "manifest.json"
+          manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+          for kind in ("submissions", "companyfacts"):
+              raw = root / kind / f"CIK{c.cik10}.json"
+              data = raw.read_bytes()
+              gz = raw.with_suffix(".json.gz")
+              with gzip.open(gz, "wb", compresslevel=9) as fh:
+                  fh.write(data)
+              raw.unlink()
+              manifest[f"{c.ticker}/{kind}"] = {
+                  "url": ("https://data.sec.gov/submissions/CIK{0}.json" if kind == "submissions"
+                          else "https://data.sec.gov/api/xbrl/companyfacts/CIK{0}.json").format(c.cik10),
+                  "downloaded_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                  "sha256_of_json": hashlib.sha256(data).hexdigest(),
+                  "bytes": len(data),
+                  "file": str(gz),
+                  "github_run": os.environ.get("GITHUB_SERVER_URL", "") + "/" + os.environ.get("GITHUB_REPOSITORY", "") + "/actions/runs/" + os.environ.get("GITHUB_RUN_ID", ""),
+              }
+          manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+          PY
+        shell: bash
+      - name: Commit fixtures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/fixtures/real
+          git commit -m "Add official SEC data fixtures for ${{ inputs.ticker }} (downloaded by workflow run ${{ github.run_id }})" || echo "nothing to commit"
+          git push
