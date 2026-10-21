@@ -30,7 +30,7 @@ earnings-monitor analyze MSFT --comparison yoy --xlsx msft.xlsx --csv msft.csv
 streamlit run app/dashboard.py               # analyst dashboard
 pytest                                       # 197 tests, offline (also run by GitHub Actions CI)
 python evaluation/run_m2_eval.py             # explanation evaluation, offline part (free)
-python evaluation/run_m2_eval.py --live      # with ANTHROPIC_API_KEY: calls the model (costs money)
+python evaluation/run_m2_eval.py --live      # with SEC_SCANNER_API_KEY: calls the model (costs money)
 ```
 
 `earnings-monitor ingest MSFT --refresh` re-downloads to check for new filings.
@@ -60,7 +60,7 @@ screen and in every export. It never substitutes invented numbers.
   (with evidence IDs, page and a link that opens the filing at the passage), and on request
   a model explanation split into the calculated change, what the filing says (with exact
   quotes), and labeled inference, plus anything the checks rejected and the call's tokens
-  and cost. Answers are cached; a spending cap stops calls. Needs `ANTHROPIC_API_KEY`.
+  and cost. Answers are cached; a spending cap stops calls. Needs `SEC_SCANNER_API_KEY` (falls back to `ANTHROPIC_API_KEY`).
 - Trend charts of standalone quarters.
 - Validation tab: missing data, revised values, balance-sheet identity, YTD consistency.
 - Excel workbook (Summary, Changes, Findings, Values and sources, Unresolved issues,

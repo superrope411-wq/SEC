@@ -1,6 +1,6 @@
 """One end-to-end example: "Why did revenue increase in fiscal year 2025?" on Microsoft's FY2025 10-K.
 
-Every step up to the model call runs offline from saved files. With ANTHROPIC_API_KEY set and
+Every step up to the model call runs offline from saved files. With SEC_SCANNER_API_KEY set and
 --live, the model is called once (or the cached answer reused) and the checked explanation is
 appended. Without a key the report says the model step was not run; nothing is simulated.
 
@@ -82,7 +82,7 @@ def main() -> int:
             lines.append(f"\nUsage: {u.model}, {u.input_tokens:,} in / {u.output_tokens:,} out tokens, ${u.cost_usd:.4f}, "
                          f"{u.latency_ms / 1000:.1f}s{' (cached)' if u.cached else ''}.")
     else:
-        lines.append("**Not run.** No ANTHROPIC_API_KEY was available (or --live was not given), so no model output "
+        lines.append("**Not run.** No SEC_SCANNER_API_KEY was available (or --live was not given), so no model output "
                      "exists for this example yet. Nothing here is simulated.")
     OUT.write_text("\n".join(lines) + "\n")
     print(OUT.read_text())

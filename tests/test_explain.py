@@ -297,8 +297,18 @@ def test_model_failure_is_recorded_and_contained(annual, tmp_path):
 
 def test_no_api_key_means_no_call(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("SEC_SCANNER_API_KEY", raising=False)
     with pytest.raises(ModelUnavailable):
         ClaudeExplainer(AiSettings())
+
+
+def test_scanner_key_wins_over_the_reserved_name(monkeypatch):
+    from earnings_monitor.explain.llm import api_key
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fallback")
+    monkeypatch.setenv("SEC_SCANNER_API_KEY", "scanner")
+    assert api_key() == "scanner"
+    monkeypatch.delenv("SEC_SCANNER_API_KEY")
+    assert api_key() == "fallback"
 
 
 def test_cost_formula():
@@ -343,3 +353,15 @@ def test_refusal_and_truncation_are_errors():
         with pytest.raises(ModelError) as e:
             ClaudeExplainer(AiSettings(), client=client).generate("s", "u")
         assert e.value.usage.output_tokens == 5
+
+
+def test_total_row_under_its_metric_group():
+    """A 'Revenue' group with a 'Total revenue' row is the company total; a segment row is not."""
+    from earnings_monitor.explain.figures import _is_total_row
+    row = lambda group, label: Passage(evidence_id="e", accn="a", form="10-K", section="PII-I8", section_title="t",
+                                       kind="table_row", text="", row_group=group, row_label=label)
+    assert _is_total_row(row("Revenue", "Total revenue"), "revenue")
+    assert _is_total_row(row("Revenue", "Total"), "revenue")
+    assert _is_total_row(row("Revenue:", "Total revenue"), "revenue")
+    assert not _is_total_row(row("Revenue", "Intelligent Cloud"), "revenue")
+    assert not _is_total_row(row("Intelligent Cloud", "Total revenue"), "revenue")

@@ -1,0 +1,1191 @@
+{
+  "generated_at": "2026-10-21T21:18:07+00:00",
+  "mode": "live",
+  "split": "all",
+  "model": "claude-opus-5-5",
+  "summary": {
+    "questions": 19,
+    "by_category": {
+      "supported": 8,
+      "ambiguous": 4,
+      "unanswerable": 6,
+      "inference_only": 1
+    },
+    "gated_without_model": 2,
+    "gold_quote_recall": "16/21",
+    "gold_figure_checks": "16/16 verified",
+    "offline_pass": "12/15",
+    "offline_fail_ids": [
+      "A2",
+      "A3",
+      "A4"
+    ],
+    "live_pass": "19/19",
+    "live_pass_by_category": {
+      "supported": "8/8",
+      "ambiguous": "4/4",
+      "unanswerable": "6/6",
+      "inference_only": "1/1"
+    },
+    "citation_validity": "120/120",
+    "unsupported_claim_rate": "21/61",
+    "errors": [],
+    "cost_usd": 0.953,
+    "tokens_in": 105134,
+    "tokens_out": 29911,
+    "latency_ms_median": 12956,
+    "ai_ledger": {
+      "api_calls": 17,
+      "cost_usd": 1.018756,
+      "input_tokens": 105134,
+      "output_tokens": 29911,
+      "avg_latency_ms": 15005,
+      "outcomes": {
+        "ok": 17
+      },
+      "cache_hits": 3,
+      "cached_answers": 17
+    }
+  },
+  "results": [
+    {
+      "id": "S1",
+      "split": "dev",
+      "category": "supported",
+      "question": "Why did revenue increase in fiscal year 2025 compared with fiscal year 2024?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$36.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 36602000000.0,
+          "stated": 36600000000.0
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "15%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 14.93215623240672,
+          "stated": 15.0
+        }
+      ],
+      "prepare_ms": 31,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 14,
+        "valid_citations": 14,
+        "management_statements": 5,
+        "rejected_management": 1,
+        "inferences": 1,
+        "rejected_inferences": 0,
+        "figures": 5,
+        "figures_verified": 5,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5713,
+          "output_tokens": 2144,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.065732,
+          "latency_ms": 19876,
+          "cached": true,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Productivity and Business Processes revenue grew because of Microsoft 365 Commercial cloud. Within the segment, Dynamics grew 15% on 19% Dynamics 365 growth. Microsoft 365 Consumer grew 11% on subscriber growth and higher revenue per user from a price increase. LinkedIn revenue rose 9%.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: segment, within)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S2",
+      "split": "heldout",
+      "category": "supported",
+      "question": "What drove the increase in operating expenses in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 10,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 7,
+        "valid_citations": 7,
+        "management_statements": 5,
+        "rejected_management": 1,
+        "inferences": 2,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5877,
+          "output_tokens": 1601,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.055528,
+          "latency_ms": 13418,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "By segment, operating expenses rose in Intelligent Cloud because of cloud and AI engineering investments. In More Personal Computing, they rose because of Gaming, including Activision Blizzard. In Productivity and Business Processes, they rose because of cloud and AI engineering and commercial sales investments.",
+            "reasons": [
+              "wording not supported by the quotes (12/21 content words found: missing business, computing, intelligent, more, personal, processe)",
+              "states a cause the quotes do not give (missing: business, computing, more, personal, processe, productivity)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S3",
+      "split": "dev",
+      "category": "supported",
+      "question": "Why did operating cash flow increase in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "operating_cash_flow",
+          "measure": "change_amount",
+          "text": "$17.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 17614000000.0,
+          "stated": 17600000000.0
+        },
+        {
+          "metric": "operating_cash_flow",
+          "measure": "current_value",
+          "text": "$136.2 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 136162000000.0,
+          "stated": 136199999999.99998
+        }
+      ],
+      "prepare_ms": 57,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 1,
+        "valid_citations": 1,
+        "management_statements": 1,
+        "rejected_management": 0,
+        "inferences": 2,
+        "rejected_inferences": 0,
+        "figures": 4,
+        "figures_verified": 2,
+        "figures_conflict": 0,
+        "figures_rejected": 2,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6121,
+          "output_tokens": 1064,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.045764,
+          "latency_ms": 9857,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": []
+      }
+    },
+    {
+      "id": "S4",
+      "split": "heldout",
+      "category": "supported",
+      "question": "Why did revenue increase in the third quarter of fiscal 2025 compared with a year earlier?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$8.2 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 8208000000.0,
+          "stated": 8199999999.999999
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "13%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 13.269100197225905,
+          "stated": 13.0
+        }
+      ],
+      "prepare_ms": 25,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 15,
+        "valid_citations": 15,
+        "management_statements": 5,
+        "rejected_management": 3,
+        "inferences": 1,
+        "rejected_inferences": 0,
+        "figures": 5,
+        "figures_verified": 5,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5975,
+          "output_tokens": 2236,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.06862,
+          "latency_ms": 17661,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Azure drove the increase in Intelligent Cloud revenue. That segment's revenue grew $4.6 billion, or 21%. Server products and cloud services revenue grew 22%, driven by 33% growth in Azure and other cloud services revenue.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: segment)"
+            ]
+          },
+          {
+            "text": "Microsoft 365 Commercial cloud drove the increase in Productivity and Business Processes revenue. Other growth in this area came from Dynamics products and cloud services (up 11%, with Dynamics 365 up 16%), LinkedIn (up 7%) and Microsoft 365 Consumer (up 10%). The Consumer growth came from subscriber growth and from higher revenue per user following a price increase.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: area, came, following, other, thi)"
+            ]
+          },
+          {
+            "text": "Search and news advertising drove the increase in More Personal Computing revenue, which grew $767 million, or 6%. Search and news advertising revenue rose 15%, driven by higher revenue per search and higher search volume. Gaming revenue rose 5% on Xbox content and services, while Xbox hardware revenue fell 6%. Windows OEM and Devices revenue rose 3%.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: per, volume, while)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S5",
+      "split": "dev",
+      "category": "supported",
+      "question": "What drove operating income growth in the quarter compared with the same quarter last year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "operating_income",
+          "measure": "change_amount",
+          "text": "$4.4 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 4419000000.0,
+          "stated": 4400000000.0
+        },
+        {
+          "metric": "operating_income",
+          "measure": "change_percent",
+          "text": "16%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 16.02189913346144,
+          "stated": 16.0
+        }
+      ],
+      "prepare_ms": 14,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 5,
+        "valid_citations": 5,
+        "management_statements": 5,
+        "rejected_management": 2,
+        "inferences": 2,
+        "rejected_inferences": 0,
+        "figures": 4,
+        "figures_verified": 4,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6248,
+          "output_tokens": 1473,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.054452,
+          "latency_ms": 12190,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Productivity and Business Processes operating income increased $2.2 billion, or 15%.",
+            "reasons": [
+              "wording not supported by the quotes (4/7 content words found: missing business, processe, productivity)"
+            ]
+          },
+          {
+            "text": "More Personal Computing operating income increased $603 million, or 21%.",
+            "reasons": [
+              "wording not supported by the quotes (4/7 content words found: missing computing, more, personal)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S6",
+      "split": "heldout",
+      "category": "supported",
+      "question": "Why did revenue increase compared with the same quarter last year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$9.1 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 9068000000.0,
+          "stated": 9100000000.0
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "16%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 16.04472990427659,
+          "stated": 16.0
+        }
+      ],
+      "prepare_ms": 18,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 15,
+        "valid_citations": 15,
+        "management_statements": 5,
+        "rejected_management": 3,
+        "inferences": 1,
+        "rejected_inferences": 0,
+        "figures": 5,
+        "figures_verified": 5,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5729,
+          "output_tokens": 2221,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.067336,
+          "latency_ms": 16590,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Intelligent Cloud revenue grew because of Azure. That segment's revenue rose $4.1 billion, or 20%. Server products and cloud services revenue rose 23%, driven by 33% growth in Azure and other cloud services.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: segment)"
+            ]
+          },
+          {
+            "text": "Productivity and Business Processes revenue grew because of Microsoft 365 Commercial cloud. That segment's revenue rose $3.1 billion, or 12%. Microsoft 365 Commercial products and cloud services rose 13%, driven by 15% Commercial cloud growth. Other product lines in the segment also grew: Dynamics rose 14%, LinkedIn 10% and Microsoft 365 Consumer 5%.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: line, other, segment)"
+            ]
+          },
+          {
+            "text": "More Personal Computing revenue grew because of Gaming. That segment's revenue rose $1.9 billion, or 17%. Search and news advertising revenue rose $207 million, or 7%. Excluding traffic acquisition costs it rose 18%, on higher search volume and higher revenue per search. Windows OEM and Devices revenue rose 2%.",
+            "reasons": [
+              "numbers not in the cited quotes: 207, 7",
+              "states a cause the quotes do not give (missing: million, segment)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S7",
+      "split": "dev",
+      "category": "supported",
+      "question": "Why did operating income increase compared with the same quarter last year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "operating_income",
+          "measure": "change_amount",
+          "text": "$4.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 4621000000.0,
+          "stated": 4600000000.0
+        },
+        {
+          "metric": "operating_income",
+          "measure": "change_percent",
+          "text": "17%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 17.09455460195324,
+          "stated": 17.0
+        }
+      ],
+      "prepare_ms": 14,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 5,
+        "valid_citations": 5,
+        "management_statements": 3,
+        "rejected_management": 1,
+        "inferences": 2,
+        "rejected_inferences": 0,
+        "figures": 4,
+        "figures_verified": 4,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5998,
+          "output_tokens": 1366,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.051312,
+          "latency_ms": 11344,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "At the segment level, operating income rose in Productivity and Business Processes by $2.4 billion (16%), in Intelligent Cloud by $1.3 billion (14%), and in More Personal Computing by $955 million (32%), with the last figure including a favorable foreign currency impact of 2%.",
+            "reasons": [
+              "wording not supported by the quotes (10/22 content words found: missing business, cloud, computing, figure, intelligent, last)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S8",
+      "split": "heldout",
+      "category": "supported",
+      "question": "Why did revenue grow compared with the second quarter of fiscal 2024?",
+      "gate": null,
+      "offered": 15,
+      "gold": 1,
+      "gold_retrieved": 1,
+      "gold_missing": [],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$7.6 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 7612000000.0,
+          "stated": 7600000000.0
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "12%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 12.273460174137375,
+          "stated": 12.0
+        }
+      ],
+      "prepare_ms": 20,
+      "offline_pass": true,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 9,
+        "valid_citations": 9,
+        "management_statements": 4,
+        "rejected_management": 1,
+        "inferences": 1,
+        "rejected_inferences": 0,
+        "figures": 5,
+        "figures_verified": 5,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6577,
+          "output_tokens": 2381,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.073928,
+          "latency_ms": 20300,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Productivity and Business Processes growth was driven by Microsoft 365 Commercial cloud. Microsoft 365 Commercial products and cloud services revenue rose $2.8 billion or 15%. Commercial cloud revenue grew 16%, supported by 7% seat growth from small and medium business and frontline worker offerings, plus growth in revenue per user. Dynamics products and cloud services revenue also rose 15%, and Microsoft 365 Consumer products and cloud services revenue rose 8%.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: plu, support)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "A1",
+      "split": "dev",
+      "category": "ambiguous",
+      "question": "Why did margins change?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 65,
+      "offline_pass": true,
+      "live": {
+        "status": "inferred",
+        "model_status": "inferred",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 9,
+        "valid_citations": 9,
+        "management_statements": 7,
+        "rejected_management": 1,
+        "inferences": 3,
+        "rejected_inferences": 0,
+        "figures": 7,
+        "figures_verified": 7,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": "'Margins' could mean gross margin percentage, operating margin or net margin. Gross margin is not in the calculated changes table, but the filing discusses it. The filing does not directly explain operating margin or net margin. The answer centres on operating margin, using the filing's gross margin and operating expense commentary.",
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5958,
+          "output_tokens": 2927,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.082372,
+          "latency_ms": 22587,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "As a percent of revenue, sales and marketing fell from 10% to 9%. Research and development stayed at 12%, and general and administrative stayed at 3%.",
+            "reasons": [
+              "wording not supported by the quotes (2/10 content words found: missing administrative, decrease, development, general, marketing, research)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "A2",
+      "split": "heldout",
+      "category": "ambiguous",
+      "question": "How did the cloud business do this year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 3,
+      "gold_retrieved": 1,
+      "gold_missing": [
+        "Microsoft Cloud revenue increased 23% to $168.9 billion.",
+        "Revenue increased $18.8 billion or 21%."
+      ],
+      "gold_figure_checks": [],
+      "prepare_ms": 14,
+      "offline_pass": false,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": false,
+        "citations": 9,
+        "valid_citations": 9,
+        "management_statements": 6,
+        "rejected_management": 1,
+        "inferences": 2,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": "'Cloud business' could mean a total Microsoft Cloud revenue figure, the Intelligent Cloud segment as a whole, or Azure specifically. The passages give neither a total Microsoft Cloud revenue figure nor total Intelligent Cloud segment revenue, so this answer covers the individual cloud product lines the filing discusses. None of these product-level figures maps to a company-wide metric in the calculated changes table, so no figures are tied to metric IDs.",
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6255,
+          "output_tokens": 2611,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.07724,
+          "latency_ms": 22467,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Azure and other cloud services revenue grew 34%, driven by demand for Microsoft's portfolio of services. This lifted Server products and cloud services revenue by $18.6 billion, or 23%. Server products revenue fell 3% as customers continued to shift to cloud offerings.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: lift, thi)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "A3",
+      "split": "dev",
+      "category": "ambiguous",
+      "question": "Why did revenue grow this year?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 1,
+      "gold_missing": [
+        "Revenue increased $24.9 billion or 14% with growth across each of our segments."
+      ],
+      "gold_figure_checks": [
+        {
+          "metric": "revenue",
+          "measure": "change_amount",
+          "text": "$8.2 billion",
+          "result": "verified",
+          "reasons": [],
+          "expected": 8208000000.0,
+          "stated": 8199999999.999999
+        },
+        {
+          "metric": "revenue",
+          "measure": "change_percent",
+          "text": "13%",
+          "result": "verified",
+          "reasons": [],
+          "expected": 13.269100197225905,
+          "stated": 13.0
+        }
+      ],
+      "prepare_ms": 28,
+      "offline_pass": false,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 14,
+        "valid_citations": 14,
+        "management_statements": 5,
+        "rejected_management": 3,
+        "inferences": 1,
+        "rejected_inferences": 0,
+        "figures": 7,
+        "figures_verified": 7,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": "'This year' could mean the fiscal year-to-date (nine months ended March 31, 2025) rather than the quarter. The supplied comparison is quarter versus same quarter of the prior year, so that reading was used; the driver passages also refer to the three-month periods.",
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6222,
+          "output_tokens": 2864,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.082168,
+          "latency_ms": 23825,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Productivity and Business Processes growth was driven by Microsoft 365 Commercial cloud. Microsoft 365 Commercial products and cloud services rose $2.2 billion, or 11%. Commercial cloud grew 12% on 7% seat growth, driven by small and medium business and frontline worker offerings, plus higher revenue per user. Dynamics 365 grew 16%, Microsoft 365 Consumer cloud grew 10% and LinkedIn grew 7%.",
+            "reasons": [
+              "states a cause the quotes do not give (missing: plu)"
+            ]
+          },
+          {
+            "text": "More Personal Computing growth was driven by search and news advertising. That revenue rose $449 million, or 15%, and rose 21% excluding traffic acquisition costs, on higher revenue per search and higher search volume. Gaming rose $270 million, or 5%, on Xbox content and services, while Xbox hardware fell 6%. Windows OEM and Devices rose 3%.",
+            "reasons": [
+              "numbers not in the cited quotes: 449, 15",
+              "states a cause the quotes do not give (missing: while)"
+            ]
+          },
+          {
+            "text": "Currency was a headwind: movements in the U.S. dollar against certain foreign currencies reduced reported international revenue for the quarter.",
+            "reasons": [
+              "wording not supported by the quotes (6/11 content words found: missing against, currency, headwind, movement, reduce)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "A4",
+      "split": "heldout",
+      "category": "ambiguous",
+      "question": "What happened to expenses?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 0,
+      "gold_missing": [
+        "Cost of revenue increased $13.7 billion or 19% driven by growth in Microsoft Cloud.",
+        "Operating expenses increased $3.8 billion or 6% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition."
+      ],
+      "gold_figure_checks": [],
+      "prepare_ms": 3,
+      "offline_pass": false,
+      "live": {
+        "status": "supported",
+        "model_status": "supported",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": false,
+        "citations": 12,
+        "valid_citations": 12,
+        "management_statements": 7,
+        "rejected_management": 2,
+        "inferences": 2,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": "'Expenses' could mean operating expenses by function, segment operating expenses, cost of revenue, interest expense, or other income (expense), net. The answer focuses on functional operating expenses and also covers segment, interest and other expense items that the passages address. No passage covers cost of revenue, and the calculated changes table has no expense metric.",
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5964,
+          "output_tokens": 2720,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.078256,
+          "latency_ms": 22379,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "Segment operating expenses rose in all three segments. Productivity and Business Processes was up $1.1 billion (4%) on cloud and AI engineering and commercial sales investments. Intelligent Cloud was up $1.5 billion (7%) on cloud and AI engineering investments. More Personal Computing was up $1.3 billion (9%) on Gaming, including Activision Blizzard.",
+            "reasons": [
+              "wording not supported by the quotes (13/23 content words found: missing all, business, computing, intelligent, more, personal)"
+            ]
+          },
+          {
+            "text": "Exchange rate movements did not have a material impact on reported expenses in fiscal year 2025.",
+            "reasons": [
+              "wording not supported by the quotes (4/7 content words found: missing exchange, movement, rate)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "How much revenue did Azure generate in fiscal year 2025, in dollars?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 34,
+      "offline_pass": null,
+      "live": {
+        "status": "insufficient evidence",
+        "model_status": "insufficient evidence",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": null,
+        "citations": 0,
+        "valid_citations": 0,
+        "management_statements": 0,
+        "rejected_management": 0,
+        "inferences": 0,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": "'Azure' could mean Azure alone or 'Azure and other cloud services', the category the filing reports. Neither is given as a dollar amount in the passages, so the answer is the same under either reading.",
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6204,
+          "output_tokens": 572,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.036256,
+          "latency_ms": 5997,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": []
+      }
+    },
+    {
+      "id": "U2",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "Why did revenue increase from the third quarter to the fourth quarter of fiscal 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 46,
+      "offline_pass": null,
+      "live": {
+        "status": "inferred",
+        "model_status": "inferred",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": null,
+        "citations": 2,
+        "valid_citations": 2,
+        "management_statements": 1,
+        "rejected_management": 1,
+        "inferences": 3,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 5768,
+          "output_tokens": 1312,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.049312,
+          "latency_ms": 12113,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "The filing describes a general seasonal pattern: revenue fluctuates quarterly and is usually higher in the fiscal fourth quarter because more multi-year contracts are executed then.",
+            "reasons": [
+              "wording not supported by the quotes (8/15 content words found: missing describe, general, more, pattern, seasonal, then)",
+              "states a cause the quotes do not give (missing: more, then)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "U3",
+      "split": "heldout",
+      "category": "unanswerable",
+      "question": "What revenue does Microsoft expect for fiscal year 2026?",
+      "gate": "The question asks about 2026, after the periods in this filing (filed 2025-07-30). Filings report results that have happened; they cannot answer that.",
+      "offered": 0,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 0,
+      "offline_pass": true,
+      "live": {
+        "status": "insufficient evidence",
+        "model_status": null,
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": null,
+        "citations": 0,
+        "valid_citations": 0,
+        "management_statements": 0,
+        "rejected_management": 0,
+        "inferences": 0,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": null,
+        "rejections": []
+      }
+    },
+    {
+      "id": "U4",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "Why did Adobe's revenue grow?",
+      "gate": "The question is about Adobe Inc.; this analysis covers only Microsoft Corporation's filing 0000950170-25-061046.",
+      "offered": 0,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 0,
+      "offline_pass": true,
+      "live": {
+        "status": "insufficient evidence",
+        "model_status": null,
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": null,
+        "citations": 0,
+        "valid_citations": 0,
+        "management_statements": 0,
+        "rejected_management": 0,
+        "inferences": 0,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": null,
+        "rejections": []
+      }
+    },
+    {
+      "id": "U5",
+      "split": "heldout",
+      "category": "unanswerable",
+      "question": "How many new Azure customers did Microsoft add in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 12,
+      "offline_pass": null,
+      "live": {
+        "status": "insufficient evidence",
+        "model_status": "insufficient evidence",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": null,
+        "citations": 0,
+        "valid_citations": 0,
+        "management_statements": 0,
+        "rejected_management": 0,
+        "inferences": 0,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6615,
+          "output_tokens": 392,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.0343,
+          "latency_ms": 4988,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": []
+      }
+    },
+    {
+      "id": "U6",
+      "split": "heldout",
+      "category": "inference_only",
+      "question": "Why did capital expenditures increase in fiscal year 2025?",
+      "gate": null,
+      "offered": 15,
+      "gold": 2,
+      "gold_retrieved": 2,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 149,
+      "offline_pass": true,
+      "live": {
+        "status": "inferred",
+        "model_status": "inferred",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": true,
+        "citations": 3,
+        "valid_citations": 3,
+        "management_statements": 2,
+        "rejected_management": 1,
+        "inferences": 1,
+        "rejected_inferences": 0,
+        "figures": 3,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 3,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 6316,
+          "output_tokens": 1519,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.055644,
+          "latency_ms": 12956,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": [
+          {
+            "text": "The filing confirms that additions to property and equipment rose by $20.1 billion in fiscal year 2025. It cites this as a partial offset to the decrease in cash used in investing, but it does not give a reason for the capex increase itself.",
+            "reasons": [
+              "numbers that failed the metric/period/unit/value check: 20.1",
+              "wording not supported by the quotes (6/21 content words found: missing but, capex, cite, confirm, decrease, doe)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "U7",
+      "split": "dev",
+      "category": "unanswerable",
+      "question": "Why did Microsoft's stock price fall during the quarter?",
+      "gate": null,
+      "offered": 15,
+      "gold": 0,
+      "gold_retrieved": 0,
+      "gold_missing": [],
+      "gold_figure_checks": [],
+      "prepare_ms": 6,
+      "offline_pass": null,
+      "live": {
+        "status": "insufficient evidence",
+        "model_status": "insufficient evidence",
+        "allowed": true,
+        "passed": true,
+        "gold_citation_hit": null,
+        "citations": 0,
+        "valid_citations": 0,
+        "management_statements": 0,
+        "rejected_management": 0,
+        "inferences": 0,
+        "rejected_inferences": 0,
+        "figures": 0,
+        "figures_verified": 0,
+        "figures_conflict": 0,
+        "figures_rejected": 0,
+        "ambiguity": null,
+        "error": null,
+        "usage": {
+          "model": "claude-opus-5-5",
+          "input_tokens": 7594,
+          "output_tokens": 508,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cost_usd": 0.040536,
+          "latency_ms": 6542,
+          "cached": false,
+          "stop_reason": "end_turn"
+        },
+        "rejections": []
+      }
+    }
+  ]
+}
