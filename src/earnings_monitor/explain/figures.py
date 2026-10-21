@@ -83,10 +83,11 @@ def _target_periods(c: CalculatedChange, cur_start, cur_end, pri_start, pri_end,
 def _is_total_row(p: Passage, metric_id: str) -> bool:
     terms = METRIC_TERMS.get(metric_id, [])
     label = (p.row_label or "").lower()
-    group = (p.row_group or "").lower()
+    group = (p.row_group or "").lower().rstrip(":").strip()
     if group in ("", "total") and label in terms:
         return True
-    return label == "total" and group in terms  # e.g. group "Revenue", row "Total"
+    # e.g. group "Revenue", row "Total" or "Total revenue"
+    return group in terms and label in ["total"] + [f"total {t}" for t in terms]
 
 
 def _subject_is_metric(before: str, metric_id: str, subject: str | None) -> tuple[bool, str]:
