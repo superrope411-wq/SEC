@@ -1,6 +1,6 @@
 {
-  "description": "Main HTML documents of Microsoft's FY2025 10-Q and 10-K filings, saved unmodified (gzip) from EDGAR's archive. Used offline by the evidence tests.",
-  "downloaded_at": "2026-10-09T20:06:00Z",
+  "description": "Main HTML documents of 10-Q and 10-K filings by Microsoft, Salesforce and Adobe, saved unmodified (gzip) from EDGAR's archive. Used offline by the evidence and disclosure-comparison tests.",
+  "downloaded_at": "2026-10-09T20:06:00Z (Microsoft FY2025 filings); 2026-10-21T22:01:00Z (the rest)",
   "user_agent": "Ronin SEC-scanner (contact email in SEC_USER_AGENT)",
   "files": [
     {
@@ -34,6 +34,86 @@
       "filed": "2025-07-30",
       "bytes_uncompressed": 8158182,
       "sha256_uncompressed": "8223271391eda4e89301d51213714f8bcd925925ba6b41c691788c7eb66c9657"
+    },
+    {
+      "path": "0000796343-24-000150/adbe-20240531.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634324000150/adbe-20240531.htm",
+      "form": "10-Q",
+      "filed": "2024-06-26",
+      "bytes_uncompressed": 1757424,
+      "sha256_uncompressed": "262a3cc8f77204586a34df2b5805fe651fdfcd8a943aed4e5e406a1edd4e6d3e"
+    },
+    {
+      "path": "0000796343-25-000004/adbe-20241129.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634325000004/adbe-20241129.htm",
+      "form": "10-K",
+      "filed": "2025-01-13",
+      "bytes_uncompressed": 2405142,
+      "sha256_uncompressed": "7e725329d9a855bd88a6341aee724bb69b651516890d6ec596b4b9691f18ada6"
+    },
+    {
+      "path": "0000796343-25-000073/adbe-20250530.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634325000073/adbe-20250530.htm",
+      "form": "10-Q",
+      "filed": "2025-06-25",
+      "bytes_uncompressed": 1759491,
+      "sha256_uncompressed": "21779f09279eea95c23204b6434cf6612b8eb246cbba7f8e9a1ce5850d19e618"
+    },
+    {
+      "path": "0000796343-26-000003/adbe-20251128.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm",
+      "form": "10-K",
+      "filed": "2026-01-15",
+      "bytes_uncompressed": 2321291,
+      "sha256_uncompressed": "62246236a62fe2fc0abdc9b16e50a1a8cb4c1b3a1e9f3b500ce40132e768d0cd"
+    },
+    {
+      "path": "0000950170-24-048288/msft-20240331.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017024048288/msft-20240331.htm",
+      "form": "10-Q",
+      "filed": "2024-04-25",
+      "bytes_uncompressed": 5698664,
+      "sha256_uncompressed": "14ac44717239bc7db9a1a99eab1f3025719b85f84b8a9ca6e8eba1a0278c51b8"
+    },
+    {
+      "path": "0000950170-24-087843/msft-20240630.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm",
+      "form": "10-K",
+      "filed": "2024-07-30",
+      "bytes_uncompressed": 6861026,
+      "sha256_uncompressed": "335a09c31e79087fea304096a34d16a01a16b9f7fe137871ea71d4a3b22f2b37"
+    },
+    {
+      "path": "0001108524-24-000022/crm-20240731.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/1108524/000110852424000022/crm-20240731.htm",
+      "form": "10-Q",
+      "filed": "2024-08-29",
+      "bytes_uncompressed": 2134527,
+      "sha256_uncompressed": "03bc1f3375031586b0a27ee85da6749c09a7d8bb9908c00287b1f2a713ec0cdf"
+    },
+    {
+      "path": "0001108524-25-000006/crm-20250131.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/1108524/000110852425000006/crm-20250131.htm",
+      "form": "10-K",
+      "filed": "2025-03-05",
+      "bytes_uncompressed": 2454316,
+      "sha256_uncompressed": "ceb1b392311ce5aac9a9a728970fd434e85daac886c6f80a64d908b1e524bd8c"
+    },
+    {
+      "path": "0001108524-25-000088/crm-20250731.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/1108524/000110852425000088/crm-20250731.htm",
+      "form": "10-Q",
+      "filed": "2025-09-04",
+      "bytes_uncompressed": 2050025,
+      "sha256_uncompressed": "20f26ed430d71953194678ea42faa034a80415a0335ff520713cd9b7b25d8fca"
+    },
+    {
+      "path": "0001108524-26-000060/crm-20260131.htm.gz",
+      "url": "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm",
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "bytes_uncompressed": 2570393,
+      "sha256_uncompressed": "ef701f399c3f45f86281ebaee28de031df9b18a52d9f7775b91f713bbf94830a"
     }
   ]
 }

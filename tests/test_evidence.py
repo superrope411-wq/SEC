@@ -55,7 +55,7 @@ def q3_index(msft, settings):
 
 def test_filing_fixtures_match_manifest():
     manifest = json.loads((FILINGS / "manifest.json").read_text())
-    assert len(manifest["files"]) == 4
+    assert len(manifest["files"]) == 14
     for f in manifest["files"]:
         raw = gzip.decompress((FILINGS / f["path"]).read_bytes())
         assert hashlib.sha256(raw).hexdigest() == f["sha256_uncompressed"], f["path"]
