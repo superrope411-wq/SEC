@@ -89,23 +89,35 @@ class Unit(BaseModel):
 
 
 def units(passages: list[Passage], section: str) -> list[Unit]:
-    out: list[Unit] = []
+    raw: list[Unit] = []
     for p in passages:
         if p.section != section or p.kind == "table_row":
             continue
         text = p.text.lstrip("•●▪◦· ").strip()
+        n = normalize(text)
+        raw.append(Unit(text=text, norm=n, masked=mask(n), heading=(p.headings[-1] if p.headings else ""),
+                        evidence_ids=[p.evidence_id], url=p.url, page=p.page))
+    return join_fragments(raw)
+
+
+def join_fragments(raw: list[Unit]) -> list[Unit]:
+    """Join paragraphs split by a page break and drop very short units; renumber positions."""
+    out: list[Unit] = []
+    for u in raw:
+        text = u.text.lstrip("•●▪◦· ").strip()
         prev = out[-1] if out else None
-        # Join a fragment split by a page break: previous ends mid-sentence, this one starts in lower case.
+        # A fragment split by a page break: previous ends mid-sentence, this one starts in lower case.
         if prev is not None and text and text[0].islower() and not prev.text.rstrip().endswith((".", ":", ";", "?", "!")):
             prev.text = f"{prev.text} {text}"
-            prev.evidence_ids.append(p.evidence_id)
+            prev.evidence_ids.extend(u.evidence_ids)
             prev.norm = normalize(prev.text)
             prev.masked = mask(prev.norm)
             continue
-        n = normalize(text)
-        out.append(Unit(text=text, norm=n, masked=mask(n), heading=(p.headings[-1] if p.headings else ""),
-                        evidence_ids=[p.evidence_id], url=p.url, page=p.page, position=len(out)))
-    return [u for u in out if len(words(u.norm)) >= MIN_WORDS]
+        out.append(u.model_copy(update={"text": text}))
+    out = [u for u in out if len(words(u.norm)) >= MIN_WORDS]
+    for k, u in enumerate(out):
+        u.position = k
+    return out
 
 
 class WordOp(BaseModel):
@@ -149,13 +161,24 @@ class SectionDiff(BaseModel):
         return [c for c in self.changes if not c.is_noise]
 
 
-def _word_ops(a: list[str], b: list[str]) -> tuple[list[WordOp], int]:
-    sm = SequenceMatcher(None, a, b, autojunk=False)
+def _tokens(text: str) -> tuple[list[str], list[str]]:
+    """Original whitespace-separated tokens (for display) and their normalized keys (for matching)."""
+    orig = text.replace("\xa0", " ").split()
+    keys = [" ".join(words(normalize(t))) for t in orig]
+    return orig, keys
+
+
+def _word_ops(a: Unit, b: Unit) -> tuple[list[WordOp], int]:
+    """Word-level diff of the original texts, compared on normalized words (so case, quotes and
+    punctuation do not count as changes). Returns the operations and the number of changed words."""
+    oa, ka = _tokens(a.text)
+    ob, kb = _tokens(b.text)
+    sm = SequenceMatcher(None, ka, kb, autojunk=False)
     ops, changed = [], 0
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
-        ops.append(WordOp(op=tag, old=" ".join(a[i1:i2]), new=" ".join(b[j1:j2])))
+        ops.append(WordOp(op=tag, old=" ".join(oa[i1:i2]), new=" ".join(ob[j1:j2])))
         if tag != "equal":
-            changed += max(i2 - i1, j2 - j1)
+            changed += max(sum(1 for k in ka[i1:i2] if k), sum(1 for k in kb[j1:j2] if k))
     return ops, changed
 
 
@@ -217,7 +240,7 @@ def compare_units(old: list[Unit], new: list[Unit], section: str = "") -> Sectio
         matched_pairs.append((i, j))
     for i, j in take(lambda u: u.masked):
         a, b = old[i], new[j]
-        ops, n = _word_ops(words(a.norm), words(b.norm))
+        ops, n = _word_ops(a, b)
         nums = list(zip(_numbers(a.norm), _numbers(b.norm)))
         changes.append(Change(kind="routine_update", old=a, new=b, similarity=1.0, ops=ops, words_changed=n,
                               numbers_changed=[(x, y) for x, y in nums if x != y],
@@ -243,7 +266,7 @@ def compare_units(old: list[Unit], new: list[Unit], section: str = "") -> Sectio
         if i not in old_left or j not in new_left:
             continue
         a, b = old_left.pop(i), new_left.pop(j)
-        ops, n = _word_ops(wo[i], wn[j])
+        ops, n = _word_ops(a, b)
         na, nb = _numbers(a.norm), _numbers(b.norm)
         nums = [(x, y) for x, y in zip(na, nb) if x != y]
         minor = n <= MINOR_MAX_WORDS and na == nb

@@ -59,3 +59,40 @@ def test_explanations_tab_works_without_an_api_key(tmp_path, monkeypatch):
     next(t for t in at.text_input if t.label == "Your question").set_value("Why did Adobe's revenue grow?").run()
     assert any("Insufficient evidence" in w.value for w in at.warning)
     assert any("0 API calls" in c.value for c in at.caption)
+
+
+def _app(tmp_path, monkeypatch):
+    monkeypatch.setenv("EM_MODE", "fixture")
+    monkeypatch.setenv("EM_FIXTURE_DIR", str(ROOT / "tests" / "fixtures" / "real"))
+    monkeypatch.setenv("EM_DATA_DIR", str(tmp_path))
+    at = st_testing.AppTest.from_file(str(ROOT / "app" / "dashboard.py"), default_timeout=300)
+    at.run()
+    assert not at.exception
+    return at
+
+
+def test_compare_companies_shows_offsets(tmp_path, monkeypatch):
+    at = _app(tmp_path, monkeypatch)
+    at.sidebar.radio[0].set_value("Compare companies").run()
+    assert not at.exception
+    table = at.dataframe[0].value.set_index("Company")
+    assert set(table.index) == {"Microsoft Corporation (MSFT)", "Salesforce, Inc. (CRM)", "Adobe Inc. (ADBE)"}
+    offsets = dict(zip(table.index, table["End offset (days)"]))
+    assert offsets["Microsoft Corporation (MSFT)"] == 0
+    assert abs(offsets["Salesforce, Inc. (CRM)"]) > 7 and abs(offsets["Adobe Inc. (ADBE)"]) > 7
+    assert any("days" in w.value and "share" in w.value for w in at.warning)
+
+
+def test_disclosure_tab_and_review_status(tmp_path, monkeypatch):
+    at = _app(tmp_path, monkeypatch)
+    at.sidebar.selectbox[1].set_value(TEN_K).run()
+    assert not at.exception
+    assert any("Suppressed as noise" in c.value for c in at.caption)
+    assert any("substantive changes shown" in m.value for m in at.markdown)
+    # Mark the first financial finding as needing follow-up; the status is stored.
+    radio = next(r for r in at.radio if r.key and r.key.startswith("st|fin|"))
+    radio.set_value("follow_up").run()
+    assert not at.exception
+    from earnings_monitor.review import ReviewStore
+    rows = ReviewStore(tmp_path / "reviews.sqlite").all("MSFT")
+    assert any(r["status"] == "follow_up" and r["kind"] == "financial" for r in rows)

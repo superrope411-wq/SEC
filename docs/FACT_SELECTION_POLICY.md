@@ -96,3 +96,20 @@ were looked for and the as-of date. It is never shown as zero.
   between years, the change is flagged but values are not spliced.
 - 10-K/A and 10-Q/A amendments are eligible like originals; an amendment that changes a
   value will show as revised.
+
+## Company-specific concept lists (Milestone 3)
+
+The approved list for a metric can be replaced for one company, when that company's face
+statements show that it uses a different concept for the line, or that a concept on the
+default list means something else in its filings. Each replacement is in `COMPANY_CONCEPTS`
+(`financial_normalization/metrics.py`) with its reason, the reason is quoted in every
+selection it affects, and the Definitions sheet of the export lists it.
+
+| Company | Metric | Concepts, in order | Why |
+|---|---|---|---|
+| Adobe | Current portion of debt | `DebtCurrent`, `LongTermDebtCurrent` | The balance sheet's current "Debt" line is `DebtCurrent` (1,499M at 2024-11-29); `LongTermDebtCurrent` (1,500M) is not that line. |
+| Adobe | Long-term debt | `LongTermDebtNoncurrent`, `LongTermDebt` | Since FY2015 Adobe tags its non-current "Debt" line `LongTermDebt`, although the us-gaap definition includes the current portion; Adobe shows the current portion separately. Not applied to other companies: Salesforce's `LongTermDebt` is total debt. |
+
+How these were found: the EDGAR statement pages name the concept on each printed line, and
+the Milestone 3 reconciliation compares it with the concept the pipeline selected
+([REAL_DATA_VERIFICATION.md](REAL_DATA_VERIFICATION.md)).

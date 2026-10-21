@@ -56,7 +56,9 @@ def changed_text(c: Change) -> tuple[str, str]:
         return c.new.norm, ""
     if c.kind == "removed":
         return "", c.old.norm
-    return " ".join(o.new for o in c.ops if o.op != "equal"), " ".join(o.old for o in c.ops if o.op != "equal")
+    from earnings_monitor.disclosure_diff.compare import normalize
+    return (normalize(" ".join(o.new for o in c.ops if o.op != "equal")),
+            normalize(" ".join(o.old for o in c.ops if o.op != "equal")))
 
 
 def assess(c: Change) -> Significance:
