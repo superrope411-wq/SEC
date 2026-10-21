@@ -175,26 +175,71 @@ questions (A4 is held-out): the second ranking with the raw question, the narrat
 weight and k from 12 to 15. (A later bug fix, giving bullets the period of the sentence that
 introduces them, moved A2 from 1/3 to 0/3 gold quotes offered; it was not tuned further.) The
 held-out retrieval numbers are therefore not a clean held-out
-measurement. Nothing else was tuned on the held-out split, and no model run has happened.
+measurement. Nothing else was tuned on the held-out split before the offline numbers above were taken.
 
-**Live model results: not yet measured.** This environment has no `ANTHROPIC_API_KEY`, so no
-model output exists for any question and none is shown or simulated. When a key is available:
+### Live model results (measured 2026-10-21)
+
+Everything above this heading is offline (no model). Everything in this section comes from real
+calls to `claude-opus-5-5` (effort medium, max_tokens 16000), run once with `EM_AI_BUDGET_USD=5`:
 
 ```bash
 EM_MODE=fixture EM_FIXTURE_DIR=tests/fixtures/real python evaluation/m2_example.py --live
-EM_MODE=fixture EM_FIXTURE_DIR=tests/fixtures/real python evaluation/run_m2_eval.py --live --split dev
-EM_MODE=fixture EM_FIXTURE_DIR=tests/fixtures/real python evaluation/run_m2_eval.py --live --split heldout
+EM_MODE=fixture EM_FIXTURE_DIR=tests/fixtures/real EM_AI_BUDGET_USD=5 python evaluation/run_m2_eval.py --live --split all
 ```
 
-The worst case is about $0.34 per question, $6.50 for all 19; expected cost is lower (most of
-the worst case is the output limit). Raise `EM_AI_BUDGET_USD` above the $5.00 default to run
-all questions in one go.
+Raw results: [results_live_all.json](../evaluation/m2/results_live_all.json) and
+[results_live_all.md](../evaluation/m2/results_live_all.md). The key is read from
+`SEC_SCANNER_API_KEY` (falling back to `ANTHROPIC_API_KEY`, which Claude Code cloud sessions
+reserve and strip). All 19 questions ran; none was skipped by the cap.
+
+| measure | live result |
+|---|---|
+| questions passing their pre-registered criterion | 19 / 19 (supported 8/8, ambiguous 4/4, unanswerable 6/6, inference-only 1/1) |
+| supported questions whose accepted answer cites a gold quote | 8 / 8 |
+| citations that resolve to an offered passage and whose quote is found in it | 120 / 120 |
+| management statements rejected by the checks (removed from the answer) | 21 / 61 (34%) |
+| figures the model stated that passed the metric/period/unit/value check | 44 / 49 |
+| unanswerable questions answered "insufficient evidence" or (U2) labeled inference only | 6 / 6; 2 of them stopped before any model call |
+| model calls / errors / refusals | 16 eval calls + 1 example call / 0 / 0 (2 questions stopped before the model; S1 is the example question and reused its cached answer) |
+| latency per model call | median 13.0 s, range 5.0 to 23.8 s |
+| cost | $0.95 for the eval, $0.07 for the example, under $0.001 for a key check: about $1.02 of the $5 cap |
+| tokens | 105,134 in, 29,911 out (eval) |
+
+How to read these numbers:
+
+- **19/19 is the score against our own criteria, and those criteria are lenient in places.** An
+  ambiguous question passes if the answer is allowed and flags the ambiguity; it does not check
+  that every reading was covered. For A2 to A4 retrieval offered only 1/3, 1/2 and 0/2 of the
+  gold quotes, so those answers describe one reading only. The question set (19 questions, one
+  company, one reviewer agent, no human review yet) is too small to estimate accuracy beyond
+  "worked on these questions".
+- **Rejections were mostly the checks being strict, not the model inventing things.** I read all
+  21 rejected statements. Most name a segment ("Productivity and Business Processes") whose name
+  is in a heading, not in the quoted sentence, so the word-overlap rule fails; a few add framing
+  words ("headwind", "seasonal pattern"). Two (S6, A3) stated real search-advertising figures
+  ($207 million or 7%; $449 million or 15%) that are in the filing but not in the quote the model
+  cited, so they were correctly rejected as uncited. No rejected statement contained a number
+  absent from the filings.
+- **All 5 failed figure checks were false rejections.** Each stated value equals the verified
+  pipeline value: S3's cash-flow statement row ("Net cash from operations" was parsed under the
+  group "Changes in operating assets and liabilities") and U6's capital expenditure figures
+  (the sentence calls it "additions to property and equipment", and the table prints negatives in
+  parentheses). The example run found one more of this kind ("Revenue: / Total revenue" row),
+  which was fixed in this PR before the evaluation and has a test.
+- **Held-out vs dev:** the retrieval tuning described above saw held-out questions, so the
+  held-out split is not a clean held-out measurement. The prompt and checks were not changed
+  after seeing live results, apart from the total-row fix found on the example (S1).
 
 The end-to-end example up to the model call is in
 [evaluation/m2/example_revenue_fy2025.md](../evaluation/m2/example_revenue_fy2025.md).
 
 ## Limitations
 
+- Live results come from one run on 19 questions for one company; they were not repeated, so
+  run-to-run variation is unmeasured.
+- The checks reject about a third of management statements, mostly correct ones (see above).
+  The answer an analyst sees is safe but thinner than it could be. Segment names in headings and
+  totals printed as negatives in parentheses are the main causes to fix next.
 - Lexical support (rule 4) is a proxy for "the quote supports the claim", not proof. A
   statement that reuses the quote's words with a changed meaning (for example a negation) can
   pass. The figure checks and the causal-word rule narrow this but do not close it.
