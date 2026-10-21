@@ -23,7 +23,7 @@ import pandas as pd
 
 from earnings_monitor.config import Company
 from earnings_monitor.financial_normalization.calendar import FiscalCalendar, FiscalQuarter, FiscalYear
-from earnings_monitor.financial_normalization.metrics import Metric
+from earnings_monitor.financial_normalization.metrics import Metric, concept_override_reason, metric_for
 from earnings_monitor.financial_normalization.observations import ALLOWED_FORMS
 from earnings_monitor.models import MetricValue, SourceRef, filing_url
 
@@ -69,6 +69,8 @@ class FactSelector:
 
     def select_exact(self, metric: Metric, start: date | None, end: date) -> tuple[Selected | None, list[str]]:
         """Return the selected fact for an exact period, plus notes explaining any absence."""
+        metric = metric_for(metric, self.company.ticker)
+        override = concept_override_reason(metric.id, self.company.ticker)
         chosen: Selected | None = None
         notes: list[str] = []
         period = f"{start}..{end}" if start else f"at {end}"
@@ -89,7 +91,8 @@ class FactSelector:
                 restated = float(first["value"]) != float(latest["value"])
                 n_filings = rows["accn"].nunique()
                 reason = (
-                    f"{metric.taxonomy}:{concept} is approved concept #{rank} for {metric.label}; unit {metric.unit}; "
+                    f"{metric.taxonomy}:{concept} is approved concept #{rank} for {metric.label}"
+                    f"{' (company-specific list: ' + override + ')' if override else ''}; unit {metric.unit}; "
                     f"consolidated (non-dimensional) fact; exact period {period}; "
                     f"most recent value filed on or before {self.as_of} "
                     f"({latest['form']} {latest['accn']}, filed {latest['filed']}). "

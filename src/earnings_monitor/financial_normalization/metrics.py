@@ -7,7 +7,7 @@ records the reason for every choice. See docs/FACT_SELECTION_POLICY.md.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 
 @dataclass(frozen=True)
@@ -95,3 +95,41 @@ DISPLAY_METRICS = [
     "debt_current", "debt_noncurrent", "accounts_receivable",
     "deferred_revenue_current", "deferred_revenue_noncurrent",
 ]
+
+
+# Company-specific concept lists. Each replaces the default list for one company and metric,
+# and each was checked against that company's face balance sheet on EDGAR (the statement
+# page names the XBRL concept on every line). A tag's official definition is not enough:
+# the same concept can mean different things in different companies' filings.
+COMPANY_CONCEPTS: dict[str, dict[str, tuple[tuple[str, ...], str]]] = {
+    "ADBE": {
+        "debt_current": (
+            ("DebtCurrent", "LongTermDebtCurrent"),
+            "Adobe tags the current 'Debt' line of its balance sheet with DebtCurrent (1,499M at "
+            "2024-11-29 in the FY2025 10-K). It also reports LongTermDebtCurrent, 1,500M for the same "
+            "date, which is not the balance-sheet line, so DebtCurrent is tried first.",
+        ),
+        "debt_noncurrent": (
+            ("LongTermDebtNoncurrent", "LongTermDebt"),
+            "Since FY2015 Adobe tags the non-current 'Debt' line of its balance sheet with LongTermDebt, "
+            "whose us-gaap definition would include the current portion. On Adobe's balance sheets the "
+            "current portion is a separate line (DebtCurrent), so LongTermDebt is accepted as the "
+            "non-current amount for Adobe only. Other companies use LongTermDebt for total debt "
+            "(Salesforce: 14,439M = 4,000M current + 10,439M non-current at 2026-01-31).",
+        ),
+    },
+}
+
+
+def metric_for(metric: Metric, ticker: str) -> Metric:
+    """The metric with the company's concept list, if the company has an override."""
+    override = COMPANY_CONCEPTS.get(ticker, {}).get(metric.id)
+    if override is None:
+        return metric
+    concepts, why = override
+    return replace(metric, concepts=concepts, notes=(metric.notes + " " if metric.notes else "") + why)
+
+
+def concept_override_reason(metric_id: str, ticker: str) -> str | None:
+    o = COMPANY_CONCEPTS.get(ticker, {}).get(metric_id)
+    return o[1] if o else None
