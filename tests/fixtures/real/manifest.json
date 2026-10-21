@@ -1,5 +1,5 @@
 {
-  "description": "Unmodified SEC EDGAR API responses for Microsoft (CIK 0000789019), gzip-compressed. sha256_uncompressed is the hash of the exact bytes SEC returned.",
+  "description": "Unmodified SEC EDGAR API responses for Microsoft (CIK 0000789019), Salesforce (CIK 0001108524) and Adobe (CIK 0000796343), gzip-compressed. sha256_uncompressed is the hash of the exact bytes SEC returned.",
   "user_agent": "Ronin SEC-scanner superrope411@gmail.com",
   "downloaded_by": "scripts/save_fixture.py from a Claude Code cloud session",
   "files": [
@@ -20,6 +20,42 @@
       "bytes": 4881196,
       "sha256_uncompressed": "f8aae2965b20ad0df44bdf7ccbedf797d275b6b8dc030154a7a311361bb7246f",
       "sha256_gz": "54d8361b5df26cae9880252ab47e7a4eda850b6549b24a792b4f4f7ed73dbcb3"
+    },
+    {
+      "kind": "submissions",
+      "url": "https://data.sec.gov/submissions/CIK0001108524.json",
+      "path": "submissions/CIK0001108524.json.gz",
+      "downloaded_at_utc": "2026-10-21T21:46:21+00:00",
+      "bytes": 156491,
+      "sha256_uncompressed": "23d3d32182fd5ae3b3293a69b448eeb5fa85a05c3257d053710d6ab75f03a528",
+      "sha256_gz": "85cf6a03d1fbe25e54dcc20c818975feeec63fb4d5df2ed108781b88b8dbff45"
+    },
+    {
+      "kind": "submissions",
+      "url": "https://data.sec.gov/submissions/CIK0000796343.json",
+      "path": "submissions/CIK0000796343.json.gz",
+      "downloaded_at_utc": "2026-10-21T21:46:22+00:00",
+      "bytes": 161886,
+      "sha256_uncompressed": "6000ab8cebb0c0fa7a8065741eddcc736d007739dffa337dcd4c8082d5ecfe25",
+      "sha256_gz": "c88e9ca51d5eb69c2fbf1f89fe0f19aae00a5ad273e167d03e02534b84f73092"
+    },
+    {
+      "kind": "companyfacts",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001108524.json",
+      "path": "companyfacts/CIK0001108524.json.gz",
+      "downloaded_at_utc": "2026-10-21T21:46:22+00:00",
+      "bytes": 4729214,
+      "sha256_uncompressed": "c36bddafd22061dfe573fa22199074d882196f6667cf641eb30c8cec5a340ae5",
+      "sha256_gz": "c621ce09f9e5f1d25088f0a60ef04d121e2e213776056d50bb7bc4a7133ae855"
+    },
+    {
+      "kind": "companyfacts",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000796343.json",
+      "path": "companyfacts/CIK0000796343.json.gz",
+      "downloaded_at_utc": "2026-10-21T21:46:22+00:00",
+      "bytes": 4334956,
+      "sha256_uncompressed": "86a5689aa9aa7b0f9e95be21b48b0305376e014c8dbf3b8bb3b4b131f1b6a0c4",
+      "sha256_gz": "109fa65fcabcc018d2427b767961f8618f4aac0e66a8a07ece1cca9585b75e8e"
     }
   ]
 }

@@ -1,4 +1,4 @@
-# Architecture (milestone 1)
+# Architecture
 
 ```
 SEC EDGAR (data.sec.gov)
@@ -26,9 +26,18 @@ Calculations with provenance                    calculations/measures.py, calcul
 Validation                                      validation/checks.py
    │   balance-sheet identity, YTD consistency, missing / restated / sign checks
    ▼
-Analysis object ──► Streamlit dashboard (app/dashboard.py)
-                ──► CSV / Excel exports (exports/tables.py)
-                ──► CLI (cli.py)
+Analysis object (one company, one filing, one comparison)
+   ├─► Cross-company view                       comparison.py (period alignment, offsets)
+   ├─► Streamlit dashboard                      app/dashboard.py
+   ├─► CSV / Excel exports                      exports/tables.py
+   └─► CLI                                      cli.py
+
+Filing documents (main 10-Q/10-K HTML) → passages with evidence IDs     evidence/extract.py
+   ├─► AI explanations, checked in code         explain/ (Milestone 2)
+   └─► Section comparison                       disclosure_diff/ (Milestone 3)
+         same-form pairs, noise suppression, rule-based topic tags
+
+Review state (reviewed / needs follow-up)       review.py → <data_dir>/reviews.sqlite
 ```
 
 Design rules:

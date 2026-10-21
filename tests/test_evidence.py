@@ -4,6 +4,7 @@
 import gzip
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -55,11 +56,11 @@ def q3_index(msft, settings):
 
 def test_filing_fixtures_match_manifest():
     manifest = json.loads((FILINGS / "manifest.json").read_text())
-    assert len(manifest["files"]) == 4
+    assert len(manifest["files"]) == 14
     for f in manifest["files"]:
         raw = gzip.decompress((FILINGS / f["path"]).read_bytes())
         assert hashlib.sha256(raw).hexdigest() == f["sha256_uncompressed"], f["path"]
-        assert f["url"].startswith("https://www.sec.gov/Archives/edgar/data/789019/")
+        assert re.match(r"https://www.sec.gov/Archives/edgar/data/(789019|1108524|796343)/", f["url"])
 
 
 def test_fixture_mode_never_downloads(settings):

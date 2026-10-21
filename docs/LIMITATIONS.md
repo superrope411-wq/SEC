@@ -1,8 +1,15 @@
-# Limitations and known failure modes (milestone 1)
+# Limitations and known failure modes
 
-- **Verified on one company and one fiscal year.** Microsoft FY2025 reconciles 200/200
-  against figures read from the filings ([REAL_DATA_VERIFICATION.md](REAL_DATA_VERIFICATION.md)).
-  Salesforce and Adobe are not yet verified.
+- **Verified on one fiscal year per company.** Microsoft FY2025 reconciles 200/200,
+  Salesforce FY2026 422/422 and Adobe FY2025 452/452 against figures read from the filings
+  ([REAL_DATA_VERIFICATION.md](REAL_DATA_VERIFICATION.md)). Other years are computed by the
+  same code but not reconciled; Microsoft FY2026, for example, is shown in the dashboard
+  without having been checked line by line.
+- **Company-specific tagging is handled case by case.** Adobe's debt concepts needed an
+  override; a fourth company could need others, and the reconciliation is how they are found.
+- **Cross-company periods never match.** The comparison view always shows the offset and
+  compares only each company's own growth and ratios, but the windows still differ by about
+  a month, and a fiscal-year comparison covers only about seven common months.
 - **Operating cash flow tagged as "continuing operations" is not used.** Microsoft used
   `NetCashProvidedByUsedInOperatingActivitiesContinuingOperations` in FY2014–FY2018, so
   operating cash flow, free cash flow and cash conversion show as missing for those years.
@@ -27,4 +34,9 @@
   year of XBRL filings will not get a calendar.
 - **Submissions "recent" list** can omit very old filings; those are added from facts but
   without a primary-document link (the index page link is used instead).
-- **No text yet.** Management explanations and disclosure diffs are later milestones.
+- **Disclosure comparison limits** are listed in [DISCLOSURE_CHANGES.md](DISCLOSURE_CHANGES.md#5-limitations):
+  paragraph-level matching, keyword topic tags, Risk Factors and MD&A only, and no
+  human-labeled precision yet.
+- **Review state is local.** Reviewed / needs-follow-up marks are stored in a SQLite file on
+  the machine running the dashboard (`<data_dir>/reviews.sqlite`), for one analyst; there are
+  no user accounts.

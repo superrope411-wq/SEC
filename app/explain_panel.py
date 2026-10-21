@@ -47,7 +47,7 @@ def _render(ex: Explanation, index: EvidenceIndex) -> None:
         "Change": ("n/a" if c.change_amount is None else f"{c.change_amount:+.2f} pp" if c.change_kind == "percentage_points"
                    else _fmt_money(c.change_amount, c.unit)),
         "Percent change": "" if c.change_percent is None else f"{c.change_percent * 100:+.1f}%",
-    } for c in ex.calculated if c.metric_id in metrics]), hide_index=True, use_container_width=True)
+    } for c in ex.calculated if c.metric_id in metrics]), hide_index=True, width="stretch")
 
     mgmt = [s for s in ex.accepted if s.kind == "management"]
     infs = [s for s in ex.accepted if s.kind == "inference"]
@@ -74,7 +74,7 @@ def _render(ex: Explanation, index: EvidenceIndex) -> None:
         st.dataframe(pd.DataFrame([{"Number": f.figure.stated_text, "Metric": f.figure.metric_id,
                                     "Measure": f.figure.measure, "Result": f.result, "Why": "; ".join(f.reasons),
                                     "Evidence": f.figure.evidence_id} for f in ex.figures]),
-                     hide_index=True, use_container_width=True)
+                     hide_index=True, width="stretch")
     if ex.rejected:
         with st.expander(f"Rejected by the checks ({len(ex.rejected)})"):
             for s in ex.rejected:

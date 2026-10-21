@@ -226,3 +226,92 @@ suite (156 tests) ≈ 42 s; re-checking the reference against the filings ≈ 28
 - The YTD-subtraction path for Q2/Q3 is exercised on real data only for Q4, because
   Microsoft prints three-month cash-flow columns; Q2/Q3 YTD subtraction is covered by
   synthetic tests.
+
+---
+
+# Milestone 3: Salesforce FY2026 and Adobe FY2025
+
+Run on 2026-10-21 against SEC data downloaded the same day (hashes in
+`tests/fixtures/real/manifest.json`).
+
+**Result: Salesforce 422 of 422 checks pass; Adobe 452 of 452 pass (408 of 452 before the
+Adobe debt fix below). All 466 non-zero reference figures are printed in the filings' main
+documents.** Reproduce offline with `python evaluation/verification/reconcile.py CRM` (or
+`ADBE`); `tests/test_real_crm_adbe.py` runs both in CI.
+
+## Fiscal years under test
+
+| Company | Fiscal year | Filings (accession, filed) |
+|---|---|---|
+| Salesforce (year ends Jan 31) | FY2026: Feb 1, 2025 to Jan 31, 2026 | 10-Qs 0001108524-25-000030 (2025-05-29), -25-000088 (2025-09-04), -25-000238 (2025-12-04); 10-K 0001108524-26-000060 (2026-03-02) |
+| Adobe (52/53 weeks, ends Friday nearest Nov 30) | FY2025: Nov 30, 2024 to Nov 28, 2025 (52 weeks) | 10-Qs 0000796343-25-000059 (2025-03-26), -25-000073 (2025-06-25), -25-000107 (2025-09-24); 10-K 0000796343-26-000003 (2026-01-15) |
+
+The prior fiscal year's three 10-Qs and 10-K are read too, because the year-over-year and
+sequential comparisons of FY2026/FY2025 display them (for example the prior Q4, which
+neither company files on its own: it is derived as fiscal year minus nine months).
+
+## How the expected answers were built
+
+This differs from Microsoft in one way, stated plainly: the Microsoft reference was typed by
+hand; these two were **read by a script** from the same EDGAR statement pages, using printed
+line labels that I chose after reading each statement (`evaluation/verification/companies.py`).
+
+- `statements.py` reads each filing's `FilingSummary.xml`, finds the balance sheet, income
+  statement and cash-flow statement pages, and parses every row: printed label, the XBRL
+  concept EDGAR shows for that line, and the value in every column. It imports nothing from
+  the pipeline and never reads the Company Facts API.
+- `build_reference.py` picks each metric's line **by its printed label** (for example
+  Adobe's "Debt" under current liabilities), not by XBRL concept, so the reference does not
+  inherit the pipeline's concept choices. A line that is not printed (Salesforce shows no
+  current debt in most quarters) produces no reference figure; zeros are never assumed.
+- `check_documents.py` checks every non-zero figure appears, as printed, in the filing's
+  main HTML document: 232/232 (Salesforce), 234/234 (Adobe).
+- The reconciliation checks the balance-sheet identity in the reference: 16/16 dates each.
+
+The same caveat as for Microsoft applies: the statement pages and the Company Facts API both
+come from the company's XBRL, so a tagging error by the company would appear in both; the
+document check guards against that only for whether each number is printed.
+
+## What is checked
+
+`evaluation/verification/reconcile.py`, generic for any company in `companies.py`:
+
+1. **Reported**: every reference row (each line item, each column of each filing) against
+   the value the pipeline selects for that exact period, as of that filing's date.
+2. **Displayed**: every value every analysis (each comparison) of each FY filing shows:
+   quarters (a printed 3-month column, or year-to-date differences, Q4 = FY − 9M), fiscal
+   years, balance-sheet dates, and derived measures (free cash flow, margins, cash
+   conversion, total debt) computed from reference figures only.
+3. **Export**: each checked displayed value appears unchanged, with sources, in the Excel
+   export's "Values and sources" sheet (186 Salesforce, 210 Adobe).
+
+Tolerances as for Microsoft: USD within 500,000 (statements print millions), ratios within
+0.0001. Displayed values with no reference figure are listed, not passed: 24 for Salesforce
+(none for Adobe). Six are current debt in quarters where the balance sheet prints no
+current-debt line (the pipeline shows 0, from a zero Salesforce tagged), six are total debt
+on those dates (it needs current debt), and twelve are non-current unearned revenue, which
+Salesforce does not report (shown as missing, not zero).
+
+Outputs: `evaluation/verification/{CRM,ADBE}_reconciliation.md` and `.xlsx`.
+
+## What verification found
+
+1. **Adobe's debt tags.** Adobe tags the non-current "Debt" line of its balance sheet with
+   `LongTermDebt`, a concept whose us-gaap definition includes the current portion, and
+   tags the current "Debt" line with `DebtCurrent`. It also files `LongTermDebtCurrent`,
+   which at Nov 29, 2024 is 1,500M while the balance sheet prints 1,499M. With the default
+   concept lists, Adobe's long-term debt showed as missing and its current debt as 1,500M:
+   44 failures. Fix: company-specific concept lists for Adobe only, each with its reason
+   (`COMPANY_CONCEPTS` in `metrics.py`; the reason is included in every selection). The
+   same concept means something else at Salesforce: its `LongTermDebt` is the total
+   (14,439M = 4,000M current + 10,439M non-current at Jan 31, 2026), so the Adobe rule must
+   not apply there; `tests/test_real_crm_adbe.py` checks both.
+2. **Salesforce tags its current debt line `ConvertibleDebtCurrent`** on the FY2026
+   balance sheet, while the pipeline uses `LongTermDebtCurrent`. The values are equal
+   (4,000M), so these checks pass; the reconciliation lists the 10 rows where the
+   statement's concept differs from the pipeline's.
+3. **Adobe's 10-Qs print only year-to-date cash flows.** Quarterly operating cash flow and
+   capital expenditures are derived (six months minus three months, and so on), and the
+   derived values match the reference.
+4. **Adobe's 52/53-week calendar** is handled: quarters end on Fridays (e.g. Feb 28, May 30,
+   Aug 29, Nov 28, 2025) and the fiscal-year label is right (FY2024 Q1 ended Mar 1, 2024).

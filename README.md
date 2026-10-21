@@ -7,7 +7,10 @@ that already carry sources, citing passages of the filing, and every statement i
 checked in code before it is shown.
 
 Specification: [PROJECT_SPEC.md](PROJECT_SPEC.md). Milestone 1 is the verified financial
-pipeline and dashboard. Milestone 2 (this version) adds evidence-backed explanations for
+pipeline and dashboard. Milestone 3 (this version) adds Salesforce and Adobe (verified),
+a comparison of Risk Factors and MD&A between filings, a cross-company view with
+period-alignment warnings, and reviewed / follow-up marks on findings; see
+[docs/MILESTONE_3.md](docs/MILESTONE_3.md). Milestone 2 added evidence-backed explanations for
 Microsoft FY2025; see [docs/AI_EXPLANATIONS.md](docs/AI_EXPLANATIONS.md).
 
 ## Setup
@@ -28,7 +31,10 @@ earnings-monitor ingest MSFT                 # download + cache + load (2 reques
 earnings-monitor filings MSFT                # list 10-K / 10-Q filings
 earnings-monitor analyze MSFT --comparison yoy --xlsx msft.xlsx --csv msft.csv
 streamlit run app/dashboard.py               # analyst dashboard
-pytest                                       # 197 tests, offline (also run by GitHub Actions CI)
+pytest                                       # 220 tests, offline (also run by GitHub Actions CI)
+python evaluation/verification/reconcile.py CRM   # Salesforce FY2026 vs its filings (also ADBE)
+python evaluation/m3/disclosure_noise_test.py     # disclosure comparison, controlled noise test
+python evaluation/m3/real_comparisons.py          # the 12 real Risk Factors / MD&A comparisons
 python evaluation/run_m2_eval.py             # explanation evaluation, offline part (free)
 python evaluation/run_m2_eval.py --live      # with SEC_SCANNER_API_KEY: calls the model (costs money)
 ```
@@ -76,9 +82,17 @@ screen and in every export. It never substitutes invented numbers.
 - [docs/LIMITATIONS.md](docs/LIMITATIONS.md): known failure modes
 - [docs/REAL_DATA_VERIFICATION.md](docs/REAL_DATA_VERIFICATION.md): Microsoft FY2025 checked against the filings
 - [docs/AI_EXPLANATIONS.md](docs/AI_EXPLANATIONS.md): Milestone 2 design, checks, evaluation and measured results
+- [docs/MILESTONE_3.md](docs/MILESTONE_3.md): Milestone 3 in plain language: what was built, decisions, results, failures
+- [docs/DISCLOSURE_CHANGES.md](docs/DISCLOSURE_CHANGES.md): how sections are compared and noise is suppressed
 - [evaluation/](evaluation/): reference dataset, reconciliation script and workbook, golden-set scorer
 
 ## Status
+
+Milestone 3: Salesforce FY2026 reconciles 422/422 and Adobe FY2025 452/452 against their
+filings (`python evaluation/verification/reconcile.py CRM` / `ADBE`). The disclosure
+comparison reports 0 false changes from formatting noise and finds 180/180 planted edits in
+a controlled test on real text (`python evaluation/m3/disclosure_noise_test.py`); its
+precision on real changes awaits a hand-labeled sample (`evaluation/m3/label_sheet.csv`).
 
 Milestone 1 is verified on real data: Microsoft FY2025 (three 10-Qs and the 10-K) reconciles
 200/200 against figures read independently from the filings, and dashboard and export

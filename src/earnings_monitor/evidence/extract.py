@@ -169,6 +169,7 @@ def _is_bold(el) -> bool:
     return total > 0 and bold >= 0.9 * total
 
 
+_BLOCK_TAGS = ("div", "p", "table")
 _RUNNING = re.compile(r"^(PART [IV]+|Items? [0-9A-Z, and]+)$")
 _PART = re.compile(r"^PART ([IV]+)\b")
 _ITEM = re.compile(r"^ITEM (\d+[A-C]?)\.\s*(.*)$")
@@ -271,7 +272,7 @@ def extract_passages(html: bytes | str, accn: str, form: str, url: str = "",
     for el in body.iter():
         if not isinstance(el.tag, str):
             continue
-        if el.tag in ("ix:header", "script", "style"):
+        if el.tag in ("ix:header", "script", "style") or "display:none" in (el.get("style") or "").replace(" ", ""):
             skip.update(el.iter())
             continue
         if el in skip:
@@ -279,6 +280,11 @@ def extract_passages(html: bytes | str, accn: str, form: str, url: str = "",
         is_list = el.tag == "div" and "item-list-element-wrapper" in (el.get("class") or "")
         if el.tag in ("p", "table") or is_list:
             blocks.append((el, "list" if is_list else el.tag))
+            skip.update(el.iter())
+        elif el.tag == "div" and not any(ch.tag in _BLOCK_TAGS for ch in el.iter() if ch is not el) \
+                and el.text_content().strip():
+            # Salesforce and Adobe filings put each paragraph in a <div> rather than a <p>.
+            blocks.append((el, "p"))
             skip.update(el.iter())
 
     passages: list[Passage] = []
