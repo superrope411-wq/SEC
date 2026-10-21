@@ -120,7 +120,7 @@ def render(a: Analysis, index: EvidenceIndex | None, index_error: str | None, st
         spent = store.spent_usd()
         worst = settings.worst_case_cost(len(prep.user) + 4000)
         if not api_key_present():
-            st.info("Set ANTHROPIC_API_KEY to generate explanations. The calculated changes and the evidence "
+            st.info("Set SEC_SCANNER_API_KEY to generate explanations. The calculated changes and the evidence "
                     "passages above do not need it.")
             return
         st.caption(f"Model {settings.model} · this call costs at most about ${worst:.2f} · "

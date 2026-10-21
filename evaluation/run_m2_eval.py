@@ -8,7 +8,7 @@ Offline (default, free, runs in CI-like conditions):
   - figure checks on the gold quotes: each dollar and percent change quoted for a pipeline metric
     must pass the metric/period/unit/value check against the verified calculations.
 
-Live (--live, needs ANTHROPIC_API_KEY, costs money, uses the response cache):
+Live (--live, needs SEC_SCANNER_API_KEY, costs money, uses the response cache):
   - per question: final status, whether it is allowed, gold citation hit, citation validity,
     rejected statements, tokens, cost and latency.
 
@@ -108,12 +108,12 @@ def score_live(row: dict, ex, gold: list[str]) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--split", default="all", choices=["dev", "heldout", "all"])
-    ap.add_argument("--live", action="store_true", help="call the model (needs ANTHROPIC_API_KEY; costs money)")
+    ap.add_argument("--live", action="store_true", help="call the model (needs SEC_SCANNER_API_KEY; costs money)")
     args = ap.parse_args()
     settings = load_settings()
     ai = AiSettings.from_env()
     if args.live and not api_key_present():
-        print("--live needs ANTHROPIC_API_KEY; nothing was run.")
+        print("--live needs SEC_SCANNER_API_KEY; nothing was run.")
         return 2
     data, _ = load_company(COMPANIES["MSFT"], settings)
     store = AiStore(settings.data_dir / "ai_cache.sqlite")

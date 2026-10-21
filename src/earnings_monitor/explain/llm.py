@@ -1,7 +1,8 @@
 """The one model provider, behind a small adapter.
 
 Settings (environment variables; the key is read from the environment only, never stored):
-  ANTHROPIC_API_KEY      required for live explanations
+  SEC_SCANNER_API_KEY    required for live explanations (ANTHROPIC_API_KEY is the fallback;
+                         Claude Code cloud sessions reserve and strip that name, so use this one)
   EM_AI_MODEL            default claude-opus-5-5
   EM_AI_EFFORT           low | medium | high (default medium)
   EM_AI_MAX_TOKENS       output limit per call, including thinking (default 16000)
@@ -97,8 +98,15 @@ def answer_schema() -> dict:
     return schema
 
 
+KEY_VARS = ("SEC_SCANNER_API_KEY", "ANTHROPIC_API_KEY")  # first one set wins
+
+
+def api_key() -> str | None:
+    return next((os.environ[k] for k in KEY_VARS if os.environ.get(k)), None)
+
+
 def api_key_present() -> bool:
-    return bool(os.environ.get("ANTHROPIC_API_KEY"))
+    return api_key() is not None
 
 
 class ClaudeExplainer:
@@ -106,13 +114,13 @@ class ClaudeExplainer:
         self.settings = settings
         if client is None:
             if not api_key_present():
-                raise ModelUnavailable("ANTHROPIC_API_KEY is not set, so explanations cannot be generated. "
+                raise ModelUnavailable("SEC_SCANNER_API_KEY is not set, so explanations cannot be generated. "
                                        "Calculated changes and evidence passages are still shown.")
             try:
                 import anthropic
             except ImportError as exc:
                 raise ModelUnavailable("The 'anthropic' package is not installed (pip install -e '.[ai]')") from exc
-            client = anthropic.Anthropic(max_retries=2, timeout=300.0)
+            client = anthropic.Anthropic(api_key=api_key(), max_retries=2, timeout=300.0)
         self.client = client
 
     def generate(self, system: str, user: str) -> tuple[ModelAnswer, Usage]:
@@ -131,7 +139,7 @@ class ClaudeExplainer:
                 messages=[{"role": "user", "content": user}],
             )
         except anthropic.AuthenticationError as exc:
-            raise ModelUnavailable("The API key was rejected (401). Check ANTHROPIC_API_KEY.") from exc
+            raise ModelUnavailable("The API key was rejected (401). Check SEC_SCANNER_API_KEY.") from exc
         except anthropic.RateLimitError as exc:
             raise ModelError("Rate limited by the API (429); try again later.") from exc
         except anthropic.APIStatusError as exc:

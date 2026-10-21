@@ -297,8 +297,18 @@ def test_model_failure_is_recorded_and_contained(annual, tmp_path):
 
 def test_no_api_key_means_no_call(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("SEC_SCANNER_API_KEY", raising=False)
     with pytest.raises(ModelUnavailable):
         ClaudeExplainer(AiSettings())
+
+
+def test_scanner_key_wins_over_the_reserved_name(monkeypatch):
+    from earnings_monitor.explain.llm import api_key
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fallback")
+    monkeypatch.setenv("SEC_SCANNER_API_KEY", "scanner")
+    assert api_key() == "scanner"
+    monkeypatch.delenv("SEC_SCANNER_API_KEY")
+    assert api_key() == "fallback"
 
 
 def test_cost_formula():
